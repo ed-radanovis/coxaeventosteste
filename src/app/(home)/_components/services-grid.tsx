@@ -1,0 +1,125 @@
+"use client";
+
+import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { SectionSeparator } from "@/components/ui/section-separator";
+
+const items = [
+  { title: "Reuniões e Conferências", icon: "/icons/icon_conference.png" },
+  { title: "Congressos", icon: "/icons/icon_congress.png" },
+  {
+    title: "Exposições",
+    icon: "/icons/icon_exhibition.png",
+  },
+  { title: "Feiras Comerciais", icon: "/icons/icon_business_fair2.png" },
+  { title: "Lançamentos de Produtos", icon: "/icons/icon_launch_product.png" },
+  { title: "Eventos Esportivos", icon: "/icons/icon_sporting_events.png" },
+  { title: "Casamentos", icon: "/icons/icon_wedding.png" },
+  { title: "Shows Musicais", icon: "/icons/icon_music_show.png" },
+  { title: "Cinema", icon: "/icons/icon_cinema.png" },
+  { title: "Celebrações", icon: "/icons/icon_celebrations.png" },
+];
+
+export function ServicesGrid() {
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  // during SSR, render a skeleton
+  if (!mounted) {
+    return (
+      <section
+        id="services-grid"
+        className="relative flex flex-col items-center justify-center overflow-hidden bg-stone-100 pb-12 text-stone-950"
+      >
+        <div className="container mx-auto mb-20 grid max-w-7xl grid-cols-2 gap-x-10 gap-y-20 px-6 pt-12 sm:grid-cols-3 lg:grid-cols-5">
+          {items.map((_, index) => (
+            <div key={index} className="flex flex-col items-center text-center">
+              <div className="mb-4 h-28 w-28 bg-stone-300/20" />
+              <div className="h-6 w-24 bg-stone-300/20" />
+            </div>
+          ))}
+        </div>
+        <div className="absolute -bottom-[-8px] left-1/2 z-10 -translate-x-1/2 transform">
+          <SectionSeparator
+            href="/#main-testimonial"
+            initialBg="bg-stone-300"
+          />
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section
+      id="services-grid"
+      className={`relative flex flex-col items-center justify-center overflow-hidden pb-12 transition-colors duration-700 ${
+        !mounted
+          ? "bg-stone-100 text-stone-950"
+          : theme === "dark"
+            ? "bg-stone-900 text-stone-100"
+            : "bg-stone-100 text-stone-950"
+      }`}
+    >
+      {/* icon grid */}
+      <div className="container mx-auto mb-20 grid max-w-7xl grid-cols-2 gap-x-10 gap-y-20 px-6 pt-12 sm:grid-cols-3 lg:grid-cols-5">
+        {items.map((item, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{
+              duration: 0.6,
+              ease: "easeInOut",
+              delay: index * 0.05,
+            }}
+            viewport={{ once: false, amount: 0.3 }}
+            className="group flex flex-col items-center text-center"
+          >
+            {/* mask-image */}
+            <div
+              className={`relative mb-4 flex h-28 w-28 items-center justify-center transition-all duration-500 group-hover:scale-110 ${
+                !mounted
+                  ? "group-hover:text-crusta-500 text-stone-600"
+                  : theme === "dark"
+                    ? "text-carrot-500 group-hover:text-stone-300"
+                    : "group-hover:text-crusta-500 text-stone-600"
+              }`}
+              style={{
+                maskImage: `url(${item.icon})`,
+                WebkitMaskImage: `url(${item.icon})`,
+                maskRepeat: "no-repeat",
+                WebkitMaskRepeat: "no-repeat",
+                maskPosition: "center",
+                WebkitMaskPosition: "center",
+                maskSize: "contain",
+                WebkitMaskSize: "contain",
+                backgroundColor: "currentColor",
+              }}
+            />
+
+            {/* title */}
+            <h3
+              className={`text-md font-semibold transition-all duration-500 group-hover:scale-[1.08] ${
+                !mounted
+                  ? "text-crusta-500 group-hover:text-stone-600"
+                  : theme === "dark"
+                    ? "group-hover:text-carrot-500 text-stone-300"
+                    : "text-crusta-500 group-hover:text-stone-600"
+              }`}
+              style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
+            >
+              {item.title}
+            </h3>
+          </motion.div>
+        ))}
+      </div>
+      <div className="absolute -bottom-[-8px] left-1/2 z-10 -translate-x-1/2 transform md:-bottom-[-12px]">
+        <SectionSeparator href="/#main-testimonial" initialBg="bg-stone-300" />
+      </div>
+    </section>
+  );
+}

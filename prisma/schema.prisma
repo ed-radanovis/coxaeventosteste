@@ -1,0 +1,140 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  date        DateTime
+  location    String
+  image       String?
+  price       Float?
+  isFeatured  Boolean  @default(false)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tickets Ticket[]
+  coupons Coupon[]
+
+  @@map("events")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  email     String   @unique
+  name      String?
+  role      UserRole @default(CLIENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tickets Ticket[]
+  coupons Coupon[]
+
+  galleryImages GalleryImage[]
+  testimonials  Testimonial[]
+  news          News[]
+
+  @@map("users")
+}
+
+model Ticket {
+  id        String       @id @default(cuid())
+  eventId   String
+  userId    String
+  price     Float
+  status    TicketStatus @default(ACTIVE)
+  createdAt DateTime     @default(now())
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("tickets")
+}
+
+model Coupon {
+  id        String    @id @default(cuid())
+  code      String    @unique
+  discount  Float
+  eventId   String?
+  userId    String?
+  expiresAt DateTime?
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+
+  event Event? @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user  User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("coupons")
+}
+
+model GalleryImage {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  imageUrl    String
+  category    String?
+  isActive    Boolean  @default(true)
+  order       Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("gallery_images")
+}
+
+model Testimonial {
+  id         String   @id @default(cuid())
+  clientName String
+  company    String?
+  text       String
+  rating     Int
+  imageUrl   String?
+  isFeatured Boolean  @default(false)
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("testimonials")
+}
+
+model News {
+  id          String    @id @default(cuid())
+  title       String
+  excerpt     String
+  content     String
+  author      String
+  imageUrl    String?
+  isPublished Boolean   @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("news")
+}
+
+enum UserRole {
+  CLIENT
+  ADMIN
+}
+
+enum TicketStatus {
+  ACTIVE
+  USED
+  CANCELLED
+}
