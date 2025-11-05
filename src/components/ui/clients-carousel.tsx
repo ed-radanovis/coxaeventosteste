@@ -87,7 +87,7 @@ export function ClientsCarousel() {
     },
   ];
 
-  // replicate hover to tap on mobile
+  // replicate hover to tap
   const handleTap = (id: number) => {
     setTappedLogo(id);
     setTimeout(() => setTappedLogo(null), 3500);
@@ -96,24 +96,20 @@ export function ClientsCarousel() {
   // during SSR, renders a skeleton
   if (!mounted) {
     return (
-      <section
-        className={`py-12 transition-all duration-700 ${
-          theme === "dark"
-            ? "bg-stone-800 text-stone-100"
-            : "bg-stone-200 text-stone-950"
-        }`}
-      >
-        <div className="container mx-auto max-w-7xl px-6">
+      <section className="border-t bg-stone-200 py-4 text-stone-950 transition-all duration-700 md:pt-4 md:pb-6">
+        <div className="container mx-0 max-w-full px-0">
+          <div className="mb-4 text-center">
+            <div className="h-6 bg-stone-300/20" />
+          </div>
           <div className="relative overflow-hidden">
             {/* carousel skeleton */}
             <div className="flex items-center">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
-                <div key={item} className="flex shrink-0 items-center">
-                  {/* skeleton logo container */}
+              {companies.map((_, index) => (
+                <div key={index} className="flex shrink-0 items-center">
                   <div className="flex h-[20vw] w-[40vw] items-center justify-center px-2 md:h-[15vw] md:w-[20vw]">
                     <div className="h-[20vw] w-[40vw] rounded-sm bg-stone-300/20 md:h-[8vw] md:w-[12vw]" />
                   </div>
-                  {item < 10 && (
+                  {index < companies.length - 1 && (
                     <div className="h-[5vw] w-[0.1vw] bg-stone-300/20" />
                   )}
                 </div>
@@ -143,13 +139,7 @@ export function ClientsCarousel() {
           viewport={{ once: false, amount: 0.3 }}
         >
           <span
-            className={`${
-              !mounted
-                ? "text-cerise-700"
-                : theme === "dark"
-                  ? "text-cerise-600"
-                  : "text-crusta-400"
-            }`}
+            className={theme === "dark" ? "text-cerise-600" : "text-crusta-400"}
           >
             Clientes que já se Encantaram com nossa Magia.
           </span>
@@ -179,15 +169,13 @@ export function ClientsCarousel() {
                       alt={`Logo ${company.name}`}
                       width={100}
                       height={60}
-                      className={`transition-all duration-300 ${
+                      className={`scale-60 object-contain transition-all duration-300 md:scale-80 ${
                         company.invert
                           ? "grayscale invert group-hover:grayscale-0 group-hover:invert-0"
                           : "grayscale group-hover:grayscale-0"
                       } ${
-                        tappedLogo === company.id
-                          ? "grayscale-0" // remove grayscale on tap
-                          : ""
-                      } ${company.size} scale-60 object-contain md:scale-80`}
+                        tappedLogo === company.id ? "grayscale-0" : ""
+                      } ${company.size}`}
                     />
                   </motion.div>
                 </div>

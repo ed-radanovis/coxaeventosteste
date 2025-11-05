@@ -13,10 +13,25 @@ export function About() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  // states for taps
+  const [isButtonTapped, setIsButtonTapped] = useState(false);
+  const [isVideoTapped, setIsVideoTapped] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // functions for taps
+  const handleButtonTap = () => {
+    setIsButtonTapped(true);
+    setTimeout(() => setIsButtonTapped(false), 300);
+  };
+
+  const handleVideoTap = () => {
+    setIsVideoTapped(true);
+    setTimeout(() => setIsVideoTapped(false), 300);
+    setIsVideoOpen(true);
+  };
 
   const imageSrc = !mounted
     ? "/frames/frame_coxa_eventos_light.svg"
@@ -40,7 +55,6 @@ export function About() {
             </div>
             <div className="hidden h-[400px] w-[1px] bg-stone-700/50 md:block" />
           </div>
-
           {/* right side - skeleton */}
           <div className="flex flex-col justify-center space-y-6">
             <div className="mt-0 mb-10 md:mt-24">
@@ -84,7 +98,6 @@ export function About() {
             >
               <X className="h-6 w-6" />
             </button>
-
             {/* video container */}
             <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-stone-950">
               <iframe
@@ -129,6 +142,7 @@ export function About() {
                 priority
               />
 
+              {/* video thumbnail */}
               <motion.div
                 className="h-[200px] w-[300px] cursor-pointer"
                 initial={{ opacity: 0, y: 30 }}
@@ -136,7 +150,8 @@ export function About() {
                 exit={{ opacity: 0, y: 30 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 viewport={{ once: false, amount: 0.3 }}
-                onClick={() => setIsVideoOpen(true)}
+                onClick={handleVideoTap}
+                onTouchStart={handleVideoTap}
               >
                 <div
                   className={`group relative h-full w-full overflow-hidden rounded-md border-[2px] transition-all duration-500 hover:scale-105 ${
@@ -145,19 +160,26 @@ export function About() {
                       : theme === "dark"
                         ? "border-cerise-500 shadow-md shadow-stone-500/50 hover:shadow-lg"
                         : "border-carrot-400 shadow-lg shadow-stone-950 hover:shadow-xl"
+                  } ${
+                    isVideoTapped ? "scale-105 shadow-lg brightness-110" : ""
                   }`}
                 >
-                  {/* video thumbnail */}
                   <Image
                     src="/images/image_about_yt_video.jpg"
                     alt="Conheça nossa história - Coxa Eventos"
                     width={150}
                     height={100}
-                    className="object-fit h-full w-full brightness-80 transition-transform duration-700 group-hover:scale-110 group-hover:brightness-110"
+                    className={`object-fit h-full w-full brightness-80 transition-transform duration-700 group-hover:scale-110 group-hover:brightness-110 ${
+                      isVideoTapped ? "scale-110 brightness-110" : ""
+                    }`}
                   />
 
                   {/* overlay + play button */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-stone-950/40 transition-all duration-700 group-hover:bg-stone-950/20">
+                  <div
+                    className={`absolute inset-0 flex items-center justify-center transition-all duration-700 group-hover:bg-stone-950/20 ${
+                      isVideoTapped ? "bg-stone-950/20" : "bg-stone-950/40"
+                    }`}
+                  >
                     <div className="flex flex-col items-center space-y-2">
                       <div
                         className={`flex h-8 w-8 items-center justify-center rounded-md shadow-lg transition-all duration-300 group-hover:scale-110 ${
@@ -166,15 +188,21 @@ export function About() {
                             : theme === "dark"
                               ? "group-hover:bg-carrot-400 bg-persian-500"
                               : "bg-carrot-600 group-hover:bg-persian-500"
-                        }`}
+                        } ${isVideoTapped ? "bg-persian-500 scale-110" : ""}`}
                       >
                         <Play className="h-4 w-4 fill-stone-100 text-stone-100" />
                       </div>
                       <span
-                        className={`pt-2 text-center text-sm font-semibold tracking-wide ${
+                        className={`pt-2 text-center text-sm font-semibold tracking-wide transition-colors duration-300 ${
                           theme === "dark"
                             ? "group-hover:text-persian-400 text-stone-100"
                             : "group-hover:text-carrot-300 text-stone-300"
+                        } ${
+                          isVideoTapped
+                            ? theme === "dark"
+                              ? "text-persian-400"
+                              : "text-carrot-300"
+                            : ""
                         }`}
                         style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
                       >
@@ -364,12 +392,20 @@ export function About() {
               viewport={{ once: false, amount: 0.3 }}
             >
               <Button
+                onTouchStart={handleButtonTap}
                 className={`mb-12 flex items-center gap-2 rounded-sm border px-8 py-2 text-center text-lg font-semibold shadow-md transition-all duration-300 ease-in-out hover:scale-[1.02] active:scale-[.98] md:inline-flex ${
                   !mounted
                     ? "hover:border-crusta-500 hover:text-crusta-500 bg-crusta-500 border-stone-200 text-stone-200 shadow-md shadow-stone-950 hover:bg-stone-200 hover:shadow-lg"
                     : theme === "dark"
                       ? "bg-carrot-600 hover:text-carrot-400 hover:border-carrot-400 border-stone-400 text-stone-200 shadow-md shadow-stone-600 hover:bg-stone-800 hover:shadow-lg"
                       : "hover:border-crusta-500 hover:text-crusta-500 bg-crusta-500 border-stone-200 text-stone-200 shadow-md shadow-stone-950 hover:bg-stone-200 hover:shadow-lg"
+                } ${
+                  isButtonTapped
+                    ? "scale-[1.02] shadow-lg " +
+                      (theme === "dark"
+                        ? "border-carrot-400 text-carrot-400 bg-stone-800"
+                        : "border-crusta-500 text-crusta-500 bg-stone-200")
+                    : ""
                 }`}
                 style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
               >

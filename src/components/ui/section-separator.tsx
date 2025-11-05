@@ -94,7 +94,7 @@ export function SectionSeparator({
   return (
     <div className="flex justify-center">
       <div
-        className={`h-12 w-12 rounded-full transition-all duration-300 ease-in-out ${backgroundClass} ${className} flex items-center justify-center ${
+        className={`h-12 w-12 rounded-full transition-all duration-300 ease-in-out hover:scale-110 active:scale-95 ${backgroundClass} ${className} flex items-center justify-center ${
           !mounted
             ? "shadow-sm shadow-stone-800 hover:shadow-md"
             : theme === "dark"

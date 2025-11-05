@@ -17,7 +17,8 @@ interface HeroVideo {
 export function Hero() {
   const { theme } = useTheme();
   const [, setMounted] = useState(false);
-  const [isButtonTapped, setIsButtonTapped] = useState(false); // state for tap
+  const [isButtonTapped, setIsButtonTapped] = useState(false);
+  const [tappedSocial, setTappedSocial] = useState<string | null>(null);
 
   const videos: HeroVideo[] = [
     { src: "/videos/hero/video_hero_1.mp4", position: "object-[center_46%]" },
@@ -41,6 +42,12 @@ export function Hero() {
     setIsButtonTapped(true);
     setTimeout(() => setIsButtonTapped(false), 300);
   };
+
+  const handleSocialTap = (social: string) => {
+    setTappedSocial(social);
+    setTimeout(() => setTappedSocial(null), 300);
+  };
+
   return (
     <section className="relative flex min-h-screen items-center justify-start overflow-hidden pt-20 md:pt-16">
       {/* background videos */}
@@ -85,7 +92,7 @@ export function Hero() {
             transition={{ duration: 0.6, ease: "easeInOut" }}
             className="flex items-start gap-6"
           >
-            {/* sidebar with animation */}
+            {/* sidebar */}
             <motion.div
               initial={{ opacity: 0, scaleY: 0 }}
               animate={{ opacity: 1, scaleY: 1 }}
@@ -164,19 +171,19 @@ export function Hero() {
 
               {/* CTA button */}
               <motion.div
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <Button
                   asChild
                   onTouchStart={handleButtonTap}
-                  className={`bg-cerise-600 text-cerise-100 hover:bg-cerise-600/80 mx-auto mt-16 flex w-full justify-center rounded-sm p-2 text-lg font-semibold transition-all duration-300 ease-in-out active:scale-[.98] active:opacity-30 md:mx-0 md:mt-8 md:w-1/2 md:px-8 md:py-4 ${
+                  className={`bg-cerise-600 text-cerise-100 hover:bg-cerise-600/80 mx-auto mt-16 flex w-full justify-center rounded-sm p-2 text-lg font-semibold transition-all duration-300 ease-in-out active:scale-[.98] md:mx-0 md:mt-8 md:w-1/2 md:px-8 md:py-4 ${
                     theme === "dark"
                       ? "shadow-sm shadow-stone-500/50 hover:shadow-md"
                       : "shadow-md shadow-stone-800 hover:shadow-lg"
                   } ${
                     isButtonTapped
-                      ? "bg-cerise-600/80 scale-[1.02] shadow-md"
+                      ? "!bg-cerise-600/80 !scale-[1.02] shadow-md"
                       : ""
                   }`}
                   style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
@@ -196,15 +203,24 @@ export function Hero() {
                   rel="noopener noreferrer"
                   aria-label="Instagram"
                   className="group"
+                  onTouchStart={() => handleSocialTap("instagram")}
                 >
                   <span
                     className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 ${
-                      theme === "dark"
-                        ? "bg-stone-700 text-stone-100 hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-600 hover:to-yellow-300"
-                        : "bg-stone-800 text-stone-100 hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-600 hover:to-yellow-300"
+                      theme === "dark" ? "bg-stone-700" : "bg-stone-800"
+                    } text-stone-100 ${
+                      tappedSocial === "instagram"
+                        ? "scale-110 !bg-gradient-to-br !from-purple-600 !via-pink-600 !to-yellow-300"
+                        : "hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-600 hover:to-yellow-300"
                     }`}
                   >
-                    <FaInstagram className="transition-all duration-300 group-hover:scale-130" />
+                    <FaInstagram
+                      className={`transition-all duration-300 ${
+                        tappedSocial === "instagram"
+                          ? "scale-130"
+                          : "group-hover:scale-130"
+                      }`}
+                    />
                   </span>
                 </Link>
                 <Link
@@ -213,15 +229,24 @@ export function Hero() {
                   rel="noopener noreferrer"
                   aria-label="YouTube"
                   className="group"
+                  onTouchStart={() => handleSocialTap("youtube")}
                 >
                   <span
                     className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 ${
-                      theme === "dark"
-                        ? "bg-stone-700 text-stone-100 hover:bg-red-600"
-                        : "bg-stone-800 text-stone-100 hover:bg-red-600"
+                      theme === "dark" ? "bg-stone-700" : "bg-stone-800"
+                    } text-stone-100 ${
+                      tappedSocial === "youtube"
+                        ? "scale-110 !bg-red-600"
+                        : "hover:bg-red-600"
                     }`}
                   >
-                    <FaYoutube className="transition-all duration-300 group-hover:scale-130" />
+                    <FaYoutube
+                      className={`transition-all duration-300 ${
+                        tappedSocial === "youtube"
+                          ? "scale-130"
+                          : "group-hover:scale-130"
+                      }`}
+                    />
                   </span>
                 </Link>
                 <Link
@@ -230,15 +255,24 @@ export function Hero() {
                   rel="noopener noreferrer"
                   aria-label="Facebook"
                   className="group"
+                  onTouchStart={() => handleSocialTap("facebook")}
                 >
                   <span
                     className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 ${
-                      theme === "dark"
-                        ? "bg-stone-700 text-stone-100 hover:bg-blue-600"
-                        : "bg-stone-800 text-stone-100 hover:bg-blue-600"
+                      theme === "dark" ? "bg-stone-700" : "bg-stone-800"
+                    } text-stone-100 ${
+                      tappedSocial === "facebook"
+                        ? "scale-110 !bg-blue-600"
+                        : "hover:bg-blue-600"
                     }`}
                   >
-                    <FaFacebook className="transition-all duration-300 group-hover:scale-130" />
+                    <FaFacebook
+                      className={`transition-all duration-300 ${
+                        tappedSocial === "facebook"
+                          ? "scale-130"
+                          : "group-hover:scale-130"
+                      }`}
+                    />
                   </span>
                 </Link>
               </div>

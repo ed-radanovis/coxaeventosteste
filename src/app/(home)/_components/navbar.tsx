@@ -210,32 +210,23 @@ export function Navbar() {
               HOME
             </MobileNavLink>
 
-            <MobileNavLink href="/about" onClick={() => setIsMenuOpen(false)}>
+            <MobileNavLink href="/" onClick={() => setIsMenuOpen(false)}>
               QUEM SOMOS
             </MobileNavLink>
 
-            <MobileNavLink
-              href="/services"
-              onClick={() => setIsMenuOpen(false)}
-            >
+            <MobileNavLink href="/" onClick={() => setIsMenuOpen(false)}>
               O QUE FAZEMOS
             </MobileNavLink>
 
-            <MobileNavLink
-              href="/portfolio"
-              onClick={() => setIsMenuOpen(false)}
-            >
+            <MobileNavLink href="/" onClick={() => setIsMenuOpen(false)}>
               NOSSO PORTFÓLIO
             </MobileNavLink>
 
-            <MobileNavLink
-              href="/insights"
-              onClick={() => setIsMenuOpen(false)}
-            >
+            <MobileNavLink href="/" onClick={() => setIsMenuOpen(false)}>
               NOVIDADES
             </MobileNavLink>
 
-            <MobileNavLink href="/contact" onClick={() => setIsMenuOpen(false)}>
+            <MobileNavLink href="/" onClick={() => setIsMenuOpen(false)}>
               CONTATO
             </MobileNavLink>
           </div>

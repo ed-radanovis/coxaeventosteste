@@ -9,10 +9,15 @@ import { useState, useEffect } from "react";
 export function WhatWeDo() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
-
+  const [isButtonTapped, setIsButtonTapped] = useState(false);
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleButtonTap = () => {
+    setIsButtonTapped(true);
+    setTimeout(() => setIsButtonTapped(false), 300);
+  };
 
   // during SSR, render a skeleton
   if (!mounted) {
@@ -129,8 +134,8 @@ export function WhatWeDo() {
             <p>
               Nossa equipe é formada por especialistas dedicados em todas as
               áreas da gestão de eventos. Trabalhamos lado a lado com você,
-              mergulhando na sua essência – seja a cultura da sua empresa ou a
-              emoção da sua história pessoal – para compreender suas metas e
+              mergulhando na sua essência - seja a cultura da sua empresa ou a
+              emoção da sua história pessoal - para compreender suas metas e
               anseios. Dessa conexão, nascem soluções meticulosamente
               planejadas, que refletem com autenticidade a sua identidade e os
               seus maiores desejos.
@@ -145,13 +150,21 @@ export function WhatWeDo() {
             exit={{ opacity: 0, y: 30 }}
             transition={{ duration: 0.6, delay: 1, ease: "easeInOut" }}
             viewport={{ once: false, amount: 0.3 }}
-            href="/what-we-do"
+            href="/"
+            onTouchStart={handleButtonTap}
             className={`group relative mt-10 inline-flex items-center justify-center gap-3 rounded-sm border px-1 py-3 text-base font-medium transition-all duration-300 ease-in-out hover:scale-[1.02] active:scale-[.98] md:px-6 md:text-lg ${
               !mounted
                 ? "hover:border-crusta-500 hover:text-crusta-500 bg-crusta-500 text-stone-200 shadow-lg shadow-stone-950 hover:bg-stone-100"
                 : theme === "dark"
                   ? "bg-carrot-600 hover:text-carrot-400 hover:border-carrot-400 border-stone-400 text-stone-200 shadow-md shadow-stone-600 hover:bg-stone-900 hover:shadow-lg"
                   : "hover:border-crusta-500 hover:text-crusta-500 bg-crusta-500 text-stone-200 shadow-lg shadow-stone-800 hover:bg-stone-100 hover:shadow-xl"
+            } ${
+              isButtonTapped
+                ? "scale-[1.02] shadow-lg " +
+                  (theme === "dark"
+                    ? "!border-carrot-400 !text-carrot-400 bg-stone-900"
+                    : "!border-crusta-500 !text-crusta-500 bg-stone-100")
+                : ""
             }`}
           >
             <Sparkles className="h-5 w-5" />

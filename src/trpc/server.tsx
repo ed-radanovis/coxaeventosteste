@@ -29,7 +29,6 @@
 //   getQueryClient,
 // );
 
-// src/trpc/server.ts
 // --- MODO DEMO (sem backend / sem tRPC) ---
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

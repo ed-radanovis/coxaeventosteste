@@ -30,7 +30,7 @@ const posts: Post[] = [
       "Feira internacional que reuni especialistas em gestão de recursos hídricos. Conceito visual sustentável, coordenação de palestrantes internacionais e a estrutura modular que permiti experiências interativas sobre preservação ambiental e tecnologia hídrica.",
     image: "/images/image_new_views_1.jpg",
     imageAlt: "FORÁGUA 2026 - feira internacional de recursos hídricos",
-    href: "/foragua-2026-sustentabilidade",
+    href: "https://www.foragua.com.br/",
   },
   {
     id: 2,
@@ -41,7 +41,7 @@ const posts: Post[] = [
       "O principal evento para gestores e profissionais de marketing e eventos realizado no país. Reúne toda a cadeia produtiva deste mercado em um único lugar, proporcionando muito conteúdo, informação, networking qualificado e principalmente negócios.",
     image: "/images/image_new_views_2.jpg",
     imageAlt: "Feira EBS - evento para gestores de marketing e eventos",
-    href: "/feira-ebs-gestores-marketing",
+    href: "https://feiraebs.com.br/",
   },
   {
     id: 3,
@@ -52,17 +52,34 @@ const posts: Post[] = [
       "Um evento que celebra as riquezas da região com degustações de cafés especiais e cachaças artesanais. Infraestrutura, palcos para shows regionais e a experiência imersiva que conecta visitantes à cultura local em meio às montanhas de Serra Negra.",
     image: "/images/image_new_views_3.jpg",
     imageAlt: "Festival do Café e Cachaça em Serra Negra - evento cultural",
-    href: "/festival-cafe-cachaca-serra-negra",
+    href: "https://www.serranegra.sp.gov.br/eventos/festival-do-cafe-e-da-cachaca",
   },
 ];
 
 export function NewsAndViews() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [tappedCard, setTappedCard] = useState<number | null>(null);
+  const [isButtonTapped, setIsButtonTapped] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleCardTap = (index: number) => {
+    setTappedCard(index);
+    setTimeout(() => setTappedCard(null), 800);
+  };
+
+  const handleButtonTap = () => {
+    setIsButtonTapped(true);
+    setTimeout(() => setIsButtonTapped(false), 300);
+  };
+
+  // prevents click on the card
+  const handleLinkClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
 
   // during SSR, renders a skeleton
   if (!mounted) {
@@ -125,6 +142,7 @@ export function NewsAndViews() {
       }`}
     >
       {/* bg overlay */}
+
       {/* <motion.div
         className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-stone-800/10 to-stone-800/30"
         initial={{ opacity: 0 }}
@@ -133,7 +151,6 @@ export function NewsAndViews() {
         transition={{ duration: 1.2 }}
         viewport={{ once: false, amount: 0.3 }}
       /> */}
-
       <div className="container mx-auto mt-4 max-w-7xl">
         {/* header */}
         <motion.h2
@@ -149,7 +166,7 @@ export function NewsAndViews() {
           }}
           viewport={{ once: false, amount: 0.3 }}
         >
-          {/* Mobile: flex-col, Desktop: inline */}
+          {/* mobile */}
           <div className="flex flex-col items-center md:inline">
             <span>Destaques</span>
             <span
@@ -229,7 +246,7 @@ export function NewsAndViews() {
                     : theme === "dark"
                       ? "bg-stone-800/60 shadow-md shadow-stone-600 hover:shadow-lg"
                       : "bg-stone-500/50 shadow-lg shadow-stone-950 hover:shadow-xl"
-                }`}
+                } ${tappedCard === index ? "scale-[1.02] shadow-lg" : ""}`}
                 {...animationProps}
                 whileInView={{
                   opacity: 1,
@@ -250,6 +267,7 @@ export function NewsAndViews() {
                   delay: 0.3 + index * 0.1,
                 }}
                 viewport={{ once: false, amount: 0.3 }}
+                onTouchStart={() => handleCardTap(index)}
               >
                 {/* image overlay */}
                 <div className="relative h-80 w-full overflow-hidden">
@@ -257,28 +275,39 @@ export function NewsAndViews() {
                     src={post.image}
                     alt={post.imageAlt}
                     fill
-                    className="object-cover brightness-90 transition-all duration-500 group-hover:scale-110 group-hover:brightness-110"
+                    className={`object-cover brightness-90 transition-all duration-500 group-hover:scale-110 group-hover:brightness-110 ${
+                      tappedCard === index ? "scale-110 brightness-110" : ""
+                    }`}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/50 to-stone-950/30 opacity-0 transition-all duration-500 group-hover:opacity-100" />
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/50 to-stone-950/30 transition-all duration-500 group-hover:opacity-100 ${
+                      tappedCard === index ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
                 </div>
 
                 {/* text */}
                 <div className="flex flex-col justify-between p-6">
                   <div>
                     <h3 className="mb-2 text-xl leading-tight font-semibold md:text-2xl">
-                      <Link
-                        href={post.href}
+                      <span
                         className={`transition-all duration-500 ${
                           !mounted
                             ? "group-hover:text-crusta-500 text-stone-700"
                             : theme === "dark"
                               ? "group-hover:text-carrot-400 text-stone-400"
                               : "group-hover:text-crusta-500 text-stone-700"
+                        } ${
+                          tappedCard === index
+                            ? theme === "dark"
+                              ? "!text-carrot-400"
+                              : "!text-crusta-500"
+                            : ""
                         }`}
                         style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
                       >
                         {post.title}
-                      </Link>
+                      </span>
                     </h3>
 
                     <div
@@ -288,7 +317,7 @@ export function NewsAndViews() {
                           : theme === "dark"
                             ? "text-carrot-400 group-hover:text-stone-500"
                             : "text-crusta-500 group-hover:text-stone-600"
-                      }`}
+                      } ${tappedCard === index ? "text-stone-600" : ""}`}
                       style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
                     >
                       <span>By {post.author}</span>
@@ -313,12 +342,21 @@ export function NewsAndViews() {
                   <div className="mt-6">
                     <Link
                       href={post.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={handleLinkClick}
                       className={`font-medium transition-all duration-300 ${
                         !mounted
                           ? "text-carrot-500 hover:text-carrot-600"
                           : theme === "dark"
                             ? "text-carrot-400 hover:text-cerise-500"
                             : "text-crusta-600 hover:text-cerise-700"
+                      } ${
+                        tappedCard === index
+                          ? theme === "dark"
+                            ? "!text-cerise-500"
+                            : "!text-cerise-700"
+                          : ""
                       }`}
                       style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
                     >
@@ -348,10 +386,18 @@ export function NewsAndViews() {
                 : theme === "dark"
                   ? "bg-carrot-600 hover:text-carrot-400 hover:border-carrot-400 border-stone-400 text-stone-200 shadow-md shadow-stone-600 hover:bg-stone-900 hover:shadow-lg"
                   : "hover:border-crusta-500 hover:text-crusta-500 bg-crusta-500 text-stone-200 shadow-lg shadow-stone-800 hover:bg-stone-100 hover:shadow-xl"
+            } ${
+              isButtonTapped
+                ? "scale-105 shadow-lg " +
+                  (theme === "dark"
+                    ? "border-carrot-400 text-carrot-400 bg-stone-900"
+                    : "border-crusta-500 text-crusta-500 bg-stone-100")
+                : ""
             }`}
             style={{ fontFamily: "var(--font-charis-sil)" }}
+            onTouchStart={handleButtonTap}
           >
-            <Link href="/news-and-views">
+            <Link href="/">
               <Newspaper className="h-5 w-5 transition-all duration-300 group-hover:scale-110" />
               <span>Veja todos os Destaques & Notícias</span>
             </Link>

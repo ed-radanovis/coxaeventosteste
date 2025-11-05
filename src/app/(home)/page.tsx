@@ -19,8 +19,8 @@ export default function Home() {
       <Navbar />
       <Hero />
       <About />
-      <WhatWeDo />
       <ShowcaseGrid />
+      <WhatWeDo />
       <ServicesGrid />
       <MainTestimonial />
       <NewsAndViews />

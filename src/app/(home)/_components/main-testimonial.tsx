@@ -21,11 +21,16 @@ const TESTIMONIALS = [
 
 export function MainTestimonial() {
   const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [index, setIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const inViewRef = useRef(false);
   const autoplayMs = 4000;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // intersection observer
   useEffect(() => {
@@ -61,6 +66,49 @@ export function MainTestimonial() {
   };
 
   const testimonial = (TESTIMONIALS[index] ?? TESTIMONIALS[0])!;
+
+  // during SSR, renders a skeleton
+  if (!mounted) {
+    return (
+      <section
+        id="main-testimonial"
+        className="relative flex h-dvh items-start justify-center overflow-hidden bg-stone-200 pt-48 text-stone-950 transition-colors duration-700 sm:pt-24 md:items-center md:py-20"
+      >
+        <div className="pointer-events-none absolute inset-0 z-0 mt-0 h-dvh w-full bg-stone-300 md:mt-28 md:h-3/4" />
+        {/* skeleton overlay - fixed for SSR */}
+        <div className="bg-crusta-700/50 absolute inset-0" />{" "}
+        {/* skeleton content */}
+        <div className="relative z-0 mx-auto w-full max-w-5xl px-8 text-left md:mt-0 md:mr-auto md:ml-20">
+          <div className="relative min-h-[60vh] max-w-2xl rounded-md bg-stone-950/30 px-4 py-1 text-left backdrop-blur-sm md:min-h-[60vh] md:px-10 md:py-12">
+            <div className="mb-4 flex items-center justify-start gap-4 md:mb-8">
+              <div className="h-6 w-48 rounded bg-stone-300/20" />
+            </div>
+            <div className="space-y-4">
+              <div className="h-4 rounded bg-stone-300/20" />
+              <div className="h-4 rounded bg-stone-300/20" />
+              <div className="h-4 w-3/4 rounded bg-stone-300/20" />
+              <div className="mt-4 h-6 w-32 rounded bg-stone-300/20" />
+            </div>
+
+            {/* skeleton indicators */}
+            <div className="fixed bottom-8 left-8 z-50 flex gap-3">
+              {TESTIMONIALS.map((_, i) => (
+                <div
+                  key={i}
+                  className="h-[6px] w-4 rounded-full bg-stone-300/20 md:w-8"
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="absolute -bottom-[-8px] left-1/2 z-10 -translate-x-1/2 transform md:-bottom-[-12px]">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-stone-300/20">
+            <div className="h-8 w-8 rounded bg-stone-400" />
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
