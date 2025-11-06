@@ -11,9 +11,14 @@ import { ClientsCarousel } from "@/components/ui/clients-carousel";
 import { CertificationsGrid } from "@/components/ui/certifications-grid";
 import { Footer } from "@/components/ui/footer";
 
+async function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export const generateMetadata = () => generatePageMetadata("Home");
 
-export default function Home() {
+export default async function Home() {
+  await delay(3000);
   return (
     <>
       <Navbar />

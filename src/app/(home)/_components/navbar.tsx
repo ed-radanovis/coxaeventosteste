@@ -5,10 +5,10 @@ import Link from "next/link";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { SignedIn, SignedOut, UserButton, SignInButton } from "@clerk/nextjs";
-import { Menu, X, Mail, Phone } from "lucide-react";
+import { Menu, X, Mail } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa";
 import { useTheme } from "next-themes";
 
 export function Navbar() {
@@ -260,7 +260,7 @@ export function Navbar() {
                 }`}
                 onTouchStart={() => handleTap("phone")}
               >
-                <Phone className="h-6 w-6" />
+                <FaWhatsapp className="h-6 w-6" />
                 <span className="text-base">+55 (19) 9 8255-7489</span>
               </Link>
             </div>
@@ -299,6 +299,10 @@ export function Navbar() {
                         userButtonBox:
                           "flex flex-col-reverse items-center text-muted-foreground",
                         userButtonOuterIdentifier: "text-xm md:text-base",
+                        userButtonPopoverActionButton:
+                          "dark:text-stone-300 dark:hover:text-yellow-400",
+                        userButtonPopoverActionButtonIcon:
+                          "dark:text-stone-400",
                       },
                     }}
                   />

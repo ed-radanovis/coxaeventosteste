@@ -118,7 +118,7 @@ export function Hero() {
               {/* main title */}
               <h1 className="text-4xl leading-tight font-bold md:text-6xl lg:text-7xl">
                 <span
-                  className="text-crusta-600 block font-[700] italic"
+                  className="text-crusta-500 block font-[700] italic brightness-200"
                   style={{
                     fontFamily: "var(--font-charis-sil)",
                   }}
@@ -126,7 +126,7 @@ export function Hero() {
                   Inovação
                 </span>
                 <span
-                  className="text-crusta-400 block font-[700] italic"
+                  className="text-crusta-500 block font-[700] italic brightness-150"
                   style={{
                     fontFamily: "var(--font-charis-sil)",
                   }}
@@ -135,7 +135,7 @@ export function Hero() {
                 </span>
                 <div className="inline-flex gap-4">
                   <span
-                    className="text-carrot-200 block font-[700] italic"
+                    className="text-carrot-100 block font-[700] italic"
                     style={{
                       fontFamily: "var(--font-charis-sil)",
                     }}
@@ -143,7 +143,7 @@ export function Hero() {
                     &
                   </span>
                   <span
-                    className="text-carrot-300 block font-[700] italic"
+                    className="text-crusta-500 block font-[700] italic brightness-200"
                     style={{
                       fontFamily: "var(--font-charis-sil)",
                     }}
@@ -152,7 +152,7 @@ export function Hero() {
                   </span>
                 </div>
                 <span
-                  className="text-cerise-500 text:lg mt-6 block font-[600] md:text-5xl"
+                  className="text-cerise-500 text:lg mt-6 block font-[600] brightness-150 md:text-5xl"
                   style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
                 >
                   EM EVENTOS

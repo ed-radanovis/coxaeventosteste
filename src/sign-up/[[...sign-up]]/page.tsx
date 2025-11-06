@@ -1,55 +1,26 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { SignUp } from "@clerk/nextjs";
 import { useTheme } from "next-themes";
 
-export function generateStaticParams() {
-  return [{ "sign-up": [] }];
-}
-
 export default function SignUpPage() {
   const { theme } = useTheme();
-  const isDark = theme === "dark";
 
-  const appearance = {
-    variables: {
-      colorPrimary: isDark ? "#896CFF" : "#000000",
-      colorBackground: isDark ? "#0c0a09" : "#fafaf9",
-      colorText: isDark ? "#f5f5f4" : "#1c1917",
-      colorInputBackground: isDark ? "#27272a" : "#ffffff",
-      colorInputText: isDark ? "#f5f5f4" : "#1c1917",
-    },
-    elements: {
-      formButtonPrimary:
-        "bg-yellow-400 hover:bg-yellow-500 text-black font-semibold",
-
-      socialButtonsBlockButton:
-        "transition-colors border border-border rounded-md",
-
-      socialButtonsProviderIcon: isDark
-        ? "filter brightness-150"
-        : "filter brightness-100",
-
-      socialButtonsBlockButtonText: isDark
-        ? "!text-gray-400 font-medium"
-        : "!text-gray-800 font-medium",
-
-      socialButtonsBlockButton__google: isDark
-        ? "bg-[#1c1917] hover:bg-[#27272a]"
-        : "bg-white hover:bg-gray-100",
-
-      card: "shadow-lg border border-border rounded-xl",
-    },
-  };
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
 
   return (
-    <div className="bg-background flex min-h-screen items-center justify-center p-4 transition-colors duration-300">
+    <div
+      key={theme}
+      className="flex min-h-screen items-center justify-center bg-[#212121b0] p-4 transition-colors duration-300"
+    >
       <SignUp
         path="/sign-up"
         routing="path"
         signInUrl="/sign-in"
         redirectUrl="/client"
-        appearance={appearance}
       />
     </div>
   );

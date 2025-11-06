@@ -12,7 +12,7 @@ import {
   FaEnvelope,
 } from "react-icons/fa";
 import Image from "next/image";
-import { X } from "lucide-react";
+import { SquareMousePointer, X } from "lucide-react";
 
 export function Footer() {
   const { theme } = useTheme();
@@ -29,13 +29,9 @@ export function Footer() {
     setTimeout(() => setTappedElement(null), 500);
   };
 
-  const handleEwdClick = (e: React.MouseEvent) => {
+  const handleEwdClick = (e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setShowEwdModal(true);
-  };
-
-  const handleEwdTouch = () => {
     setShowEwdModal(true);
   };
 
@@ -82,18 +78,21 @@ export function Footer() {
               {/* close button */}
               <button
                 onClick={closeEwdModal}
-                className="absolute -top-12 right-0 z-10 rounded-full bg-stone-100/10 p-2 text-stone-100 backdrop-blur-sm transition-all hover:scale-110 hover:bg-stone-100/20"
+                className="absolute -top-12 right-0 z-10 rounded-full bg-stone-100/10 p-3 text-stone-100 backdrop-blur-sm transition-all hover:scale-110 hover:bg-stone-100/20 md:p-2"
               >
                 <X className="h-6 w-6" />
               </button>
 
               {/* content container */}
-              <div className="relative w-full overflow-hidden rounded-lg bg-stone-950">
+              <div
+                className="relative w-full overflow-hidden rounded-lg bg-stone-950"
+                style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
+              >
                 {/* Header */}
                 <div className="border-b border-stone-700 bg-stone-800/50 p-4">
                   <h3
-                    className="text-carrot-500 text-lg font-semibold"
-                    style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
+                    className="text-carrot-400 text-center text-lg font-semibold"
+                    style={{ fontFamily: "var(--font-charis-sil)" }}
                   >
                     EWD APEX - Desenvolvimento Web
                   </h3>
@@ -106,19 +105,21 @@ export function Footer() {
                     alt="EWD APEX"
                     width={200}
                     height={200}
-                    className="rounded-full grayscale-0 transition-all duration-500 ease-in-out hover:scale-105"
+                    className={`rounded-full grayscale-0 transition-all duration-500 ease-in-out hover:scale-120 ${
+                      tappedElement === "ewd-modal-logo" ? "scale-120" : ""
+                    }`}
+                    onTouchStart={() => handleElementTap("ewd-modal-logo")}
                   />
                 </div>
 
                 {/* description */}
-                <div className="border-t border-stone-700 bg-stone-800/50 p-4">
-                  <p
-                    className="mb-3 text-sm text-stone-300"
-                    style={{ fontFamily: "var(--font-charis-sil)" }}
-                  >
-                    Especialistas em desenvolvimento web moderno, criando
+                <div className="border-t border-stone-700 bg-stone-800/50 p-4 text-justify">
+                  <p className="mb-3 text-sm text-stone-300">
+                    Especialistas em desenvolvimento web moderno, com soluções
+                    robustas escaláveis e centradas no usuário. Criamos
                     experiências digitais excepcionais com as mais recentes
-                    tecnologias.
+                    tecnologias, design funcional com foco em SEO , usabilidade
+                    e acessibilidade.
                   </p>
 
                   <div className="flex flex-wrap gap-4 text-xs">
@@ -126,36 +127,43 @@ export function Footer() {
                       <span className="text-carrot-400 font-semibold">
                         Frontend:
                       </span>
-                      <span className="text-stone-400">
-                        React, Next.js, TypeScript
-                      </span>
+                      <span className="text-stone-400">JS, React, Next.js</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-carrot-400 font-semibold">
                         Backend:
                       </span>
-                      <span className="text-stone-400">Node.js, Python</span>
+                      <span className="text-stone-400">
+                        Node.js, NPM, Clerk, Stripe
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-carrot-400 font-semibold">
+                        Database:
+                      </span>
+                      <span className="text-stone-400">
+                        PostgreSQL, MySQL, MongoDB
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-carrot-400 font-semibold">
                         Design:
                       </span>
-                      <span className="text-stone-400">
-                        UI/UX, Framer Motion
-                      </span>
+                      <span className="text-stone-400">UI/UX, Figma, PS</span>
                     </div>
                   </div>
                 </div>
 
                 {/* footer with external link */}
-                <div className="border-t border-stone-700 bg-stone-800/50 p-4">
+                <div className="group border-t border-stone-700 bg-stone-800/50 p-4">
                   <Link
                     href="https://edwebdev.vercel.app/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-carrot-400 inline-flex items-center gap-2 text-sm text-stone-300 transition-colors"
+                    className="group-hover:text-carrot-400 inline-flex items-center gap-2 text-sm text-stone-300 transition-all"
                   >
-                    Visitar Portfolio EWD APEX
+                    <SquareMousePointer className="text-carrot-400 h-5 w-5 transition-all group-hover:text-stone-300" />
+                    Visite nosso site
                   </Link>
                 </div>
               </div>
@@ -324,7 +332,13 @@ export function Footer() {
                         }`
                   }`}
                 />
-                <Link href="tel:+5519982557489">+55 (19) 9 8255-7489</Link>
+                <Link
+                  href="https://wa.me/5519982557489?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Coxa%20Eventos"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  +55 (19) 9 8255-7489
+                </Link>
               </p>
 
               <p
@@ -522,15 +536,14 @@ export function Footer() {
             >
               <button
                 onClick={handleEwdClick}
-                onTouchStart={handleEwdTouch}
-                className="group inline-flex cursor-pointer items-center gap-4 transition-all duration-500 ease-in-out hover:scale-103"
+                className="group inline-flex cursor-pointer touch-manipulation items-center gap-4 transition-all duration-100 ease-in-out hover:scale-103"
               >
                 <Image
                   src="/logo_EWD_apex.png"
                   alt="EWD APEX"
                   width={40}
                   height={40}
-                  className={`rounded-full grayscale transition-all duration-500 ease-in-out group-hover:scale-110 group-hover:grayscale-0 ${
+                  className={`rounded-full grayscale transition-all duration-300 ease-in-out group-hover:scale-110 group-hover:grayscale-0 ${
                     tappedElement === "ewd-group"
                       ? theme === "dark"
                         ? "scale-110 bg-stone-950/95 grayscale-0"
@@ -541,7 +554,7 @@ export function Footer() {
                   }`}
                 />
                 <span
-                  className={`text-xs font-medium transition-all duration-500 ease-in-out md:text-sm ${
+                  className={`text-xs font-medium transition-all duration-300 ease-in-out md:text-sm ${
                     tappedElement === "ewd-group"
                       ? theme === "dark"
                         ? "scale-103 text-stone-400"
@@ -603,7 +616,13 @@ export function Footer() {
                         }`
                   }`}
                 />
-                <Link href="tel:+5535984256707">+55 (35) 9 8425-6707</Link>
+                <Link
+                  href="https://wa.me/5535984256707?text=Olá%20!%20%20Gostaria%20de%20saber%20mais%20sobre%20os%20produtos%20e%20serviços%20da%20EWD%20Apex%20!%20 %20Pode%20me%20ajudar%20?"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  +55 (35) 9 8425-6707
+                </Link>
               </p>
 
               <p
