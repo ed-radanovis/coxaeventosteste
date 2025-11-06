@@ -204,7 +204,7 @@ export function Navbar() {
           </Button>
         </div>
 
-        <div className="flex h-full flex-col p-6">
+        <div className="flex h-full flex-col p-2 md:p-6">
           <div className="flex-0 space-y-1">
             <MobileNavLink href="/" onClick={() => setIsMenuOpen(false)}>
               HOME
@@ -233,12 +233,12 @@ export function Navbar() {
 
           {/* contact */}
           <div
-            className="mt-10 space-y-4 border-t border-stone-700 pt-6"
+            className="mt-4 space-y-4 border-t border-stone-700 pt-6 md:mt-10"
             style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
           >
             <div className="mb-10 space-y-2">
               <Link
-                href="mailto:edradanovis@gmail.com?subject=Contato%20Coxa%20Eventos&body=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços!"
+                href="mailto:eventos.coxa@gmail.com?subject=Contato%20Coxa%20Eventos&body=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços!"
                 className={`flex items-center gap-3 transition-all duration-200 ease-in-out ${
                   tappedElement === "email"
                     ? "text-cerise-500 scale-[1.02]"
@@ -247,7 +247,7 @@ export function Navbar() {
                 onTouchStart={() => handleTap("email")}
               >
                 <Mail className="h-6 w-6" />
-                <span className="text-base">contato@coxaeventos.com.br</span>
+                <span className="text-base">eventos.coxa@gmail.com</span>
               </Link>
               <Link
                 href="https://wa.me/5519982557489?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Coxa%20Eventos"
@@ -262,6 +262,20 @@ export function Navbar() {
               >
                 <FaWhatsapp className="h-6 w-6" />
                 <span className="text-base">+55 (19) 9 8255-7489</span>
+              </Link>
+              <Link
+                href="https://wa.me/551981989757?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Coxa%20Eventos"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-center gap-3 transition-all duration-200 ease-in-out ${
+                  tappedElement === "phone"
+                    ? "text-carrot-500 scale-[1.02]"
+                    : "hover:text-carrot-500 text-stone-300 hover:scale-[1.02]"
+                }`}
+                onTouchStart={() => handleTap("phone")}
+              >
+                <FaWhatsapp className="h-6 w-6" />
+                <span className="text-base">+55 (19) 9 8198-9757</span>
               </Link>
             </div>
 

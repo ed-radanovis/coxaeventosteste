@@ -96,7 +96,7 @@ export function ClientsCarousel() {
   // during SSR, renders a skeleton
   if (!mounted) {
     return (
-      <section className="border-t bg-stone-200 py-4 text-stone-950 transition-all duration-700 md:pt-4 md:pb-6">
+      <section className="border-t bg-stone-200 py-4 text-stone-950 transition-all duration-700 md:pt-3 md:pb-6">
         <div className="container mx-0 max-w-full px-0">
           <div className="mb-4 text-center">
             <div className="h-6 bg-stone-300/20" />
@@ -123,7 +123,7 @@ export function ClientsCarousel() {
 
   return (
     <section
-      className={`border-t py-4 transition-all duration-700 md:pt-4 md:pb-6 ${
+      className={`border-t py-4 transition-all duration-700 md:pt-3 md:pb-6 ${
         theme === "dark"
           ? "border-carrot-800 bg-stone-800 text-stone-100"
           : "border-stone-400 bg-stone-200 text-stone-950"

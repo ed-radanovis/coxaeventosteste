@@ -174,7 +174,7 @@ export function Footer() {
 
       <footer
         id="footer"
-        className={`flex justify-center py-8 transition-all duration-700 ${
+        className={`flex justify-center py-8 transition-all duration-700 md:py-9 ${
           !mounted
             ? "bg-stone-200 text-stone-950"
             : theme === "dark"
@@ -304,7 +304,7 @@ export function Footer() {
               style={{ fontFamily: "var(--font-charis-sil)" }}
             >
               <p
-                className={`bold group mb-6 inline-flex w-fit items-center gap-4 text-sm tracking-normal transition-all duration-300 ease-in-out active:scale-98 ${
+                className={`bold group mb-3 inline-flex w-fit items-center gap-4 text-sm tracking-normal transition-all duration-300 ease-in-out active:scale-98 md:mb-1 ${
                   tappedElement === "phone"
                     ? `scale-98 ${
                         theme === "dark" ? "text-stone-400" : "text-stone-800"
@@ -340,7 +340,43 @@ export function Footer() {
                   +55 (19) 9 8255-7489
                 </Link>
               </p>
-
+              <p
+                className={`bold group mb-6 inline-flex w-fit items-center gap-4 text-sm tracking-normal transition-all duration-300 ease-in-out active:scale-98 ${
+                  tappedElement === "phone"
+                    ? `scale-98 ${
+                        theme === "dark" ? "text-stone-400" : "text-stone-800"
+                      }`
+                    : `text-stone-600 hover:scale-105 ${
+                        theme === "dark"
+                          ? "hover:text-stone-400"
+                          : "hover:text-stone-800"
+                      }`
+                }`}
+                onTouchStart={() => handleElementTap("phone")}
+              >
+                <FaWhatsapp
+                  className={`h-5 w-5 transition-all duration-300 ${
+                    tappedElement === "phone"
+                      ? `scale-98 ${
+                          theme === "dark"
+                            ? "text-green-400 brightness-70"
+                            : "text-green-600 brightness-70"
+                        }`
+                      : `text-stone-600 group-hover:scale-110 ${
+                          theme === "dark"
+                            ? "brightness-70 group-hover:text-green-400"
+                            : "brightness-70 group-hover:text-green-600"
+                        }`
+                  }`}
+                />
+                <Link
+                  href="https://wa.me/5519981989757?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Coxa%20Eventos"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  +55 (19) 9 8198-9757
+                </Link>
+              </p>
               <p
                 className={`group inline-flex w-fit items-center gap-4 text-sm tracking-wider transition-all duration-500 ease-in-out active:scale-98 ${
                   tappedElement === "email"
@@ -370,8 +406,8 @@ export function Footer() {
                         }`
                   }`}
                 />
-                <Link href="mailto:contato@coxaeventos.com.br?subject=Contato%20Coxa%20Eventos&body=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços!">
-                  contato@coxaeventos.com.br
+                <Link href="mailto:eventos.coxa@gmail.com?subject=Contato%20Coxa%20Eventos&body=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços!">
+                  eventos.coxa@gmail.com
                 </Link>
               </p>
             </motion.div>
@@ -500,7 +536,7 @@ export function Footer() {
       </footer>
       {/* EWD APEX signature */}
       <motion.footer
-        className={`overflow-x-hidden py-2 transition-all duration-500 md:overflow-visible md:py-0.5 ${
+        className={`overflow-x-hidden py-2 transition-all duration-500 md:overflow-visible md:py-1.5 ${
           theme === "dark"
             ? "bg-stone-900 text-stone-400 brightness-90"
             : "bg-stone-200 text-stone-900 brightness-95"

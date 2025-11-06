@@ -73,7 +73,7 @@ export function CertificationsGrid() {
 
   return (
     <section
-      className={`border-t border-b pt-4 pb-6 transition-all duration-700 ${
+      className={`border-t border-b pt-4 pb-6 transition-all duration-700 md:pb-6 ${
         !mounted
           ? "border-stone-400 bg-stone-100 text-stone-950"
           : theme === "dark"
