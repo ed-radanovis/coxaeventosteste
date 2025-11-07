@@ -15,7 +15,7 @@ export default function ClerkThemeProvider({
   const appearance = useMemo(
     () => ({
       variables: {
-        colorPrimary: isDark ? "#896CFF" : "#464444",
+        colorPrimary: isDark ? "#27272a" : "#ffffff",
         colorBackground: isDark ? "#0c0a09" : "#eeeeee",
         colorText: isDark ? "#f5f5f4" : "#1c1917",
         colorInputBackground: isDark ? "#27272a" : "#ffffff",

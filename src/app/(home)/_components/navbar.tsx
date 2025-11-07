@@ -285,7 +285,7 @@ export function Navbar() {
               style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
             >
               <SignedOut>
-                <SignInButton mode="modal">
+                <SignInButton mode="modal" fallbackRedirectUrl="/client">
                   <Button
                     onTouchStart={() => handleTap("signin")}
                     className={`flex w-full items-center rounded-sm border text-base shadow-md transition-all duration-200 ease-in-out ${
@@ -306,7 +306,6 @@ export function Navbar() {
                 <div className="flex justify-center">
                   <UserButton
                     showName
-                    afterSignOutUrl="/"
                     appearance={{
                       elements: {
                         avatarBox: "w-7 h-7 md:w-10 md:h-10",

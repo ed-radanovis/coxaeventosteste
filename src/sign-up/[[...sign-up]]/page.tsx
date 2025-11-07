@@ -16,12 +16,7 @@ export default function SignUpPage() {
       key={theme}
       className="flex min-h-screen items-center justify-center bg-[#212121b0] p-4 transition-colors duration-300"
     >
-      <SignUp
-        path="/sign-up"
-        routing="path"
-        signInUrl="/sign-in"
-        redirectUrl="/client"
-      />
+      <SignUp path="/sign-up" routing="path" signInUrl="/sign-in" />
     </div>
   );
 }

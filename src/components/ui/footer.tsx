@@ -13,6 +13,8 @@ import {
 } from "react-icons/fa";
 import Image from "next/image";
 import { SquareMousePointer, X } from "lucide-react";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 
 export function Footer() {
   const { theme } = useTheme();
@@ -430,7 +432,54 @@ export function Footer() {
                 Coxa Eventos Ltda&nbsp; | &nbsp;Águas de Lindóia&nbsp; |
                 &nbsp;SP&nbsp; | &nbsp;Brasil
               </p>
+              {/* admin access button */}
+              <div className="mt-6 flex justify-center text-center md:justify-start">
+                <SignedOut>
+                  <SignInButton mode="modal" fallbackRedirectUrl="/admin/test">
+                    <Button
+                      onTouchStart={() => handleElementTap("admin-access")}
+                      className={`flex rounded-sm border px-1 text-xs transition-all duration-200 ease-in-out md:h-6 ${
+                        tappedElement === "admin-access"
+                          ? theme === "dark"
+                            ? "text-cerise-500 scale-102 bg-stone-900"
+                            : "text-crusta-400 scale-102 bg-stone-200"
+                          : theme === "dark"
+                            ? "hover:text-cerise-500 border-stone-600 bg-stone-900 text-stone-600 hover:scale-102 hover:bg-stone-900 active:scale-[.98]"
+                            : "hover:text-crusta-400 border-stone-400 bg-stone-200 text-stone-400 hover:scale-102 hover:bg-stone-200 active:scale-[.98]"
+                      }`}
+                      style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
+                    >
+                      Área do administrador
+                    </Button>
+                  </SignInButton>
+                </SignedOut>
+
+                <SignedIn>
+                  <div
+                    className={`flex justify-center rounded-4xl border p-0.5 md:justify-start ${
+                      theme === "dark" ? "border-stone-600" : "border-stone-400"
+                    }`}
+                  >
+                    <UserButton
+                      showName
+                      appearance={{
+                        elements: {
+                          avatarBox: "w-6 h-6 md:w-8 md:h-8",
+                          userButtonBox:
+                            "flex flex-col-reverse items-center text-stone-500 hover:text-crusta-500",
+                          userButtonOuterIdentifier: "text-xs md:text-sm",
+                          userButtonPopoverActionButton:
+                            "dark:text-stone-300 dark:hover:text-yellow-400",
+                          userButtonPopoverActionButtonIcon:
+                            "dark:text-stone-400",
+                        },
+                      }}
+                    />
+                  </div>
+                </SignedIn>
+              </div>
             </motion.div>
+
             {/* copyright - links */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
