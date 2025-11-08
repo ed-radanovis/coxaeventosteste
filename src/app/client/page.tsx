@@ -3,14 +3,22 @@
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
+import Loading from "./loading";
+import { useEffect } from "react";
 
 export default function ClientPage() {
   const { userId, isLoaded } = useAuth();
   const router = useRouter();
 
-  if (!isLoaded) {
-    return <div>Carregando...</div>;
-  }
+  useEffect(() => {
+    if (isLoaded && !userId) {
+      router.push("/sign-in?redirect_url=/client");
+    }
+  }, [isLoaded, userId, router]);
+
+  if (!isLoaded) return <Loading />;
+
+  if (!userId) return <Loading />;
 
   if (!userId) {
     router.push("/sign-in?redirect_url=/client");
@@ -39,7 +47,7 @@ export default function ClientPage() {
       <h1 className="font-charis-sil text-3xl font-bold text-white">
         Área do Cliente
       </h1>
-      <p className="font-charis-sil mt-4 text-lg font-normal text-yellow-300 italic">
+      <p className="font-charis-sil mt-4 text-lg font-normal text-amber-500 italic">
         Bem-vindo! Aqui você verá suas vantagens (cupons, novidades) em breve...
       </p>
     </div>

@@ -18,7 +18,7 @@ async function delay(ms: number) {
 export const generateMetadata = () => generatePageMetadata("Home");
 
 export default async function Home() {
-  await delay(3000);
+  await delay(2000);
   return (
     <>
       <Navbar />
