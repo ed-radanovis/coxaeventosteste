@@ -32,7 +32,6 @@ export default function ClientPage() {
       className="min-h-screen bg-stone-900 p-8"
       style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
     >
-      {/* Header com UserButton */}
       <div className="absolute top-8 right-8">
         <UserButton
           showName
