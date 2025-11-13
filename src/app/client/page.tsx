@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
 import Loading from "./loading";
 import { useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
 export default function ClientPage() {
   const { userId, isLoaded } = useAuth();
@@ -26,7 +28,10 @@ export default function ClientPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 p-8">
+    <div
+      className="min-h-screen bg-stone-900 p-8"
+      style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
+    >
       {/* Header com UserButton */}
       <div className="absolute top-8 right-8">
         <UserButton
@@ -50,6 +55,15 @@ export default function ClientPage() {
       <p className="font-charis-sil mt-4 text-lg font-normal text-amber-500 italic">
         Bem-vindo! Aqui você verá suas vantagens (cupons, novidades) em breve...
       </p>
+      <Button
+        className="mt-3"
+        variant="outline"
+        size="sm"
+        onClick={() => router.push("/")}
+      >
+        <ArrowLeft className="mr-2 h-4 w-4" />
+        Voltar
+      </Button>
     </div>
   );
 }

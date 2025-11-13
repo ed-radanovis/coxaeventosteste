@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import { Button } from "@/components/ui/button";
-import { SignedIn, SignedOut, UserButton, SignInButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+import { ClientUserButton } from "./client-user-button";
 import { Menu, X, Mail } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -292,8 +293,8 @@ export function Navbar() {
                       tappedElement === "signin"
                         ? "border-crusta-500 text-crusta-400 scale-[1.02] bg-stone-950/30 shadow-lg active:scale-[.98]"
                         : theme === "dark"
-                          ? "bg-carrot-500/80 hover:border-carrot-500 hover:text-carrot-400 border-stone-200 text-stone-200 hover:scale-[1.02] hover:bg-stone-950/30 hover:shadow-lg active:scale-[.98]"
-                          : "bg-crusta-500/80 hover:border-crusta-500 hover:text-crusta-400 border-stone-200 text-stone-200 hover:scale-[1.02] hover:bg-stone-950/30 hover:shadow-lg active:scale-[.98]"
+                          ? "bg-carrot-500/30 hover:border-carrot-500 hover:text-carrot-400 border-stone-200 text-stone-200 hover:scale-[1.02] hover:bg-stone-950/30 hover:shadow-lg active:scale-[.98]"
+                          : "bg-crusta-500/30 hover:border-crusta-500 hover:text-crusta-400 border-stone-200 text-stone-200 hover:scale-[1.02] hover:bg-stone-950/30 hover:shadow-lg active:scale-[.98]"
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -303,22 +304,12 @@ export function Navbar() {
               </SignedOut>
 
               <SignedIn>
-                <div className="flex justify-center">
-                  <UserButton
-                    showName
-                    appearance={{
-                      elements: {
-                        avatarBox: "w-7 h-7 md:w-10 md:h-10",
-                        userButtonBox:
-                          "flex flex-col-reverse items-center text-muted-foreground",
-                        userButtonOuterIdentifier: "text-xm md:text-base",
-                        userButtonPopoverActionButton:
-                          "dark:text-stone-300 dark:hover:text-yellow-400",
-                        userButtonPopoverActionButtonIcon:
-                          "dark:text-stone-400",
-                      },
-                    }}
-                  />
+                <div
+                  className={`flex w-full justify-center ${
+                    theme === "dark" ? "border-stone-600" : "border-stone-400"
+                  }`}
+                >
+                  <ClientUserButton onNavigate={() => setIsMenuOpen(false)} />
                 </div>
               </SignedIn>
               <Button
@@ -328,11 +319,11 @@ export function Navbar() {
                   tappedElement === "contact"
                     ? "border-cerise-700 text-cerise-700 scale-[1.02] bg-stone-950/30 shadow-lg active:scale-[.98]"
                     : theme === "dark"
-                      ? "bg-persian-800/50 hover:border-persian-500 hover:text-persian-500 border-stone-200 text-stone-200 hover:scale-[1.02] hover:bg-stone-950/30 hover:shadow-lg active:scale-[.98]"
-                      : "bg-cerise-900/50 hover:border-cerise-700 hover:text-cerise-700 border-stone-200 text-stone-200 hover:scale-[1.02] hover:bg-stone-950/30 hover:shadow-lg active:scale-[.98]"
+                      ? "bg-persian-800/30 hover:border-persian-500 hover:text-persian-500 border-stone-200 text-stone-200 hover:scale-[1.02] hover:bg-stone-950/30 hover:shadow-lg active:scale-[.98]"
+                      : "bg-cerise-900/30 hover:border-cerise-700 hover:text-cerise-700 border-stone-200 text-stone-200 hover:scale-[1.02] hover:bg-stone-950/30 hover:shadow-lg active:scale-[.98]"
                 }`}
               >
-                <Link href="/contact">Fale Conosco</Link>
+                <Link href="/">Fale Conosco</Link>
               </Button>
             </div>
 

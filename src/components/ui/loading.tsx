@@ -25,7 +25,13 @@ export const Loading = () => {
           className="text-sm tracking-wide text-stone-300 md:text-base"
           style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
         >
-          Loading your digital experience ...{" "}
+          Loading your
+        </span>
+        <span
+          className="text-sm tracking-wide text-stone-300 md:text-base"
+          style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
+        >
+          digital experience ...{" "}
         </span>
       </motion.div>
       <motion.div className="mt-8 h-[2px] w-32 overflow-hidden rounded-full bg-stone-800">

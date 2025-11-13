@@ -275,7 +275,6 @@ import { X, Youtube, Video, TvMinimalPlay } from "lucide-react";
 import { api } from "@/trpc/react";
 import { Loading } from "@/components/ui/loading";
 
-// ✅ CORRIGIDO: Definir tipo explícito para showcase
 type ShowcaseItem = {
   title: string;
   image: string;
@@ -318,7 +317,6 @@ export function ShowcaseGrid() {
     setSelectedShowcase(null);
   };
 
-  // ✅ CORRIGIDO: Usar tipo explícito ShowcaseItem
   const renderModalContent = (showcase: ShowcaseItem) => {
     switch (showcase.type) {
       case "youtube":

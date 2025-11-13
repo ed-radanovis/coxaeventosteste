@@ -13,8 +13,9 @@ import {
 } from "react-icons/fa";
 import Image from "next/image";
 import { SquareMousePointer, X } from "lucide-react";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { AdminUserButton } from "@/app/admin/events/_components/admin-user-button";
 
 export function Footer() {
   const { theme } = useTheme();
@@ -432,10 +433,15 @@ export function Footer() {
                 Coxa Eventos Ltda&nbsp; | &nbsp;Águas de Lindóia&nbsp; |
                 &nbsp;SP&nbsp; | &nbsp;Brasil
               </p>
+
               {/* admin access button */}
               <div className="mt-6 flex justify-center text-center md:justify-start">
                 <SignedOut>
-                  <SignInButton mode="modal" fallbackRedirectUrl="/admin/test">
+                  <SignInButton
+                    mode="modal"
+                    forceRedirectUrl={`${typeof window !== "undefined" ? window.location.origin : ""}/admin/events`}
+                    fallbackRedirectUrl={`${typeof window !== "undefined" ? window.location.origin : ""}/admin/events`}
+                  >
                     <Button
                       onTouchStart={() => handleElementTap("admin-access")}
                       className={`flex rounded-sm border px-1 text-xs transition-all duration-200 ease-in-out md:h-6 ${
@@ -456,25 +462,11 @@ export function Footer() {
 
                 <SignedIn>
                   <div
-                    className={`flex justify-center rounded-4xl border p-0.5 md:justify-start ${
+                    className={`flex justify-center p-0.5 md:justify-start ${
                       theme === "dark" ? "border-stone-600" : "border-stone-400"
                     }`}
                   >
-                    <UserButton
-                      showName
-                      appearance={{
-                        elements: {
-                          avatarBox: "w-6 h-6 md:w-8 md:h-8",
-                          userButtonBox:
-                            "flex flex-col-reverse items-center text-stone-500 hover:text-crusta-500",
-                          userButtonOuterIdentifier: "text-xs md:text-sm",
-                          userButtonPopoverActionButton:
-                            "dark:text-stone-300 dark:hover:text-yellow-400",
-                          userButtonPopoverActionButtonIcon:
-                            "dark:text-stone-400",
-                        },
-                      }}
-                    />
+                    <AdminUserButton />
                   </div>
                 </SignedIn>
               </div>
