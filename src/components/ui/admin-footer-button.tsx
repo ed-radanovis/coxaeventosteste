@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 
-export function AdminUserButton() {
+export function AdminFooterButton() {
   const router = useRouter();
   const { theme } = useTheme();
   const [showMenu, setShowMenu] = useState(false);
@@ -19,7 +19,7 @@ export function AdminUserButton() {
   };
 
   const handleMainClick = () => {
-    router.push("/admin/events");
+    router.push("/admin");
   };
 
   const toggleMenu = () => {
@@ -37,8 +37,8 @@ export function AdminUserButton() {
               ? "text-cerise-500 scale-102 bg-stone-900"
               : "text-crusta-400 scale-102 bg-stone-200"
             : theme === "dark"
-              ? "hover:text-cerise-500 border-stone-600 bg-stone-900 text-stone-600 hover:scale-102 hover:bg-stone-900 active:scale-[.98]"
-              : "hover:text-crusta-400 border-stone-400 bg-stone-200 text-stone-400 hover:scale-102 hover:bg-stone-200 active:scale-[.98]"
+              ? "hover:text-cerise-500 border-stone-600 bg-stone-900 text-stone-600 hover:scale-102 hover:bg-stone-900 active:scale-98"
+              : "hover:text-crusta-400 border-stone-400 bg-stone-200 text-stone-400 hover:scale-102 hover:bg-stone-200 active:scale-98"
         }`}
         style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
       >

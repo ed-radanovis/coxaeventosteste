@@ -177,13 +177,13 @@ export function Hero() {
                 <Button
                   asChild
                   onTouchStart={handleButtonTap}
-                  className={`bg-cerise-600 text-cerise-100 hover:bg-cerise-600/80 mx-auto mt-16 flex w-full justify-center rounded-sm p-2 text-lg font-semibold transition-all duration-300 ease-in-out active:scale-[.98] md:mx-0 md:mt-8 md:w-1/2 md:px-8 md:py-4 ${
+                  className={`bg-cerise-600 text-cerise-100 hover:bg-cerise-600/80 mx-auto mt-16 flex w-full justify-center rounded-sm p-2 text-lg font-semibold transition-all duration-300 ease-in-out active:scale-98 md:mx-0 md:mt-8 md:w-1/2 md:px-8 md:py-4 ${
                     theme === "dark"
                       ? "shadow-sm shadow-stone-500/50 hover:shadow-md"
                       : "shadow-md shadow-stone-800 hover:shadow-lg"
                   } ${
                     isButtonTapped
-                      ? "!bg-cerise-600/80 !scale-[1.02] shadow-md"
+                      ? "!bg-cerise-600/80 !scale-102 shadow-md"
                       : ""
                   }`}
                   style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
@@ -206,7 +206,7 @@ export function Hero() {
                   onTouchStart={() => handleSocialTap("instagram")}
                 >
                   <span
-                    className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 ${
+                    className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 active:scale-90 ${
                       theme === "dark" ? "bg-stone-700" : "bg-stone-800"
                     } text-stone-100 ${
                       tappedSocial === "instagram"
@@ -232,7 +232,7 @@ export function Hero() {
                   onTouchStart={() => handleSocialTap("youtube")}
                 >
                   <span
-                    className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 ${
+                    className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 active:scale-90 ${
                       theme === "dark" ? "bg-stone-700" : "bg-stone-800"
                     } text-stone-100 ${
                       tappedSocial === "youtube"
@@ -258,7 +258,7 @@ export function Hero() {
                   onTouchStart={() => handleSocialTap("facebook")}
                 >
                   <span
-                    className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 ${
+                    className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 active:scale-90 ${
                       theme === "dark" ? "bg-stone-700" : "bg-stone-800"
                     } text-stone-100 ${
                       tappedSocial === "facebook"

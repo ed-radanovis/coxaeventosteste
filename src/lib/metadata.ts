@@ -48,9 +48,9 @@ export function generatePageMetadata(pageTitle: string): Metadata {
         follow: true,
       },
     },
-    metadataBase: new URL("https://coxaeventos.com"), // Substitua pelo domínio real quando hospedar
+    metadataBase: new URL("https://coxaeventos.com"), // Substituir pelo domínio real quando hospedar
     alternates: {
-      canonical: "/", // Ajuste para páginas dinâmicas depois (ex.: /events/[id])
+      canonical: "/", // Ajustar para páginas dinâmicas depois (ex.: /events/[id])
     },
   };
 }

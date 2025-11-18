@@ -246,7 +246,7 @@ export function NewsAndViews() {
                     : theme === "dark"
                       ? "bg-stone-800/60 shadow-md shadow-stone-600 hover:shadow-lg"
                       : "bg-stone-500/50 shadow-lg shadow-stone-950 hover:shadow-xl"
-                } ${tappedCard === index ? "scale-[1.02] shadow-lg" : ""}`}
+                } ${tappedCard === index ? "scale-102 shadow-lg" : ""}`}
                 {...animationProps}
                 whileInView={{
                   opacity: 1,

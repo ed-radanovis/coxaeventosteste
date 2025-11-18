@@ -23,11 +23,15 @@
 
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 import { eventRouter } from "./routers/event";
-import { adminRouter } from "./routers/admin";
+import { adminRouter } from "./routers/admin-event";
+import { displayCaseRouter } from "./routers/display_case";
+import { adminDisplayCaseRouter } from "./routers/admin-display_case";
 
 export const appRouter = createTRPCRouter({
   event: eventRouter,
   admin: adminRouter,
+  displayCase: displayCaseRouter,
+  adminDisplayCase: adminDisplayCaseRouter,
   // depois adicionamos: testimonial, news, etc.
 });
 

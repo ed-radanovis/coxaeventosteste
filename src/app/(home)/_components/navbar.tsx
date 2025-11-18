@@ -145,7 +145,7 @@ export function Navbar() {
                 variant="ghost"
                 onClick={() => setIsMenuOpen(true)}
                 onTouchStart={() => handleTap("hamburger")}
-                className={`hamburger-button h-14 w-14 rounded-lg p-3 transition-all duration-300 active:scale-[.90] active:opacity-30 md:p-4 ${
+                className={`hamburger-button h-14 w-14 rounded-lg p-3 transition-all duration-300 active:scale-90 active:opacity-30 md:p-4 ${
                   isScrolled
                     ? "text-carrot-500 hover:bg-stone-100/20 hover:text-amber-400"
                     : "text-carrot-500 hover:bg-stone-100/20 hover:text-amber-400"
@@ -242,8 +242,8 @@ export function Navbar() {
                 href="mailto:eventos.coxa@gmail.com?subject=Contato%20Coxa%20Eventos&body=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços!"
                 className={`flex items-center gap-3 transition-all duration-200 ease-in-out ${
                   tappedElement === "email"
-                    ? "text-cerise-500 scale-[1.02]"
-                    : "hover:text-cerise-500 text-stone-300 hover:scale-[1.02]"
+                    ? "text-cerise-500 scale-102"
+                    : "hover:text-cerise-500 text-stone-300 hover:scale-102"
                 }`}
                 onTouchStart={() => handleTap("email")}
               >
@@ -256,8 +256,8 @@ export function Navbar() {
                 rel="noopener noreferrer"
                 className={`flex items-center gap-3 transition-all duration-200 ease-in-out ${
                   tappedElement === "phone"
-                    ? "text-carrot-500 scale-[1.02]"
-                    : "hover:text-carrot-500 text-stone-300 hover:scale-[1.02]"
+                    ? "text-carrot-500 scale-102"
+                    : "hover:text-carrot-500 text-stone-300 hover:scale-102"
                 }`}
                 onTouchStart={() => handleTap("phone")}
               >
@@ -270,8 +270,8 @@ export function Navbar() {
                 rel="noopener noreferrer"
                 className={`flex items-center gap-3 transition-all duration-200 ease-in-out ${
                   tappedElement === "phone"
-                    ? "text-carrot-500 scale-[1.02]"
-                    : "hover:text-carrot-500 text-stone-300 hover:scale-[1.02]"
+                    ? "text-carrot-500 scale-102"
+                    : "hover:text-carrot-500 text-stone-300 hover:scale-102"
                 }`}
                 onTouchStart={() => handleTap("phone")}
               >
@@ -291,10 +291,10 @@ export function Navbar() {
                     onTouchStart={() => handleTap("signin")}
                     className={`flex w-full items-center rounded-sm border text-base shadow-md transition-all duration-200 ease-in-out ${
                       tappedElement === "signin"
-                        ? "border-crusta-500 text-crusta-400 scale-[1.02] bg-stone-950/30 shadow-lg active:scale-[.98]"
+                        ? "border-crusta-500 text-crusta-400 scale-102 bg-stone-950/30 shadow-lg active:scale-98"
                         : theme === "dark"
-                          ? "bg-carrot-500/30 hover:border-carrot-500 hover:text-carrot-400 border-stone-200 text-stone-200 hover:scale-[1.02] hover:bg-stone-950/30 hover:shadow-lg active:scale-[.98]"
-                          : "bg-crusta-500/30 hover:border-crusta-500 hover:text-crusta-400 border-stone-200 text-stone-200 hover:scale-[1.02] hover:bg-stone-950/30 hover:shadow-lg active:scale-[.98]"
+                          ? "bg-carrot-500/30 hover:border-carrot-500 hover:text-carrot-400 border-stone-200 text-stone-200 hover:scale-102 hover:bg-stone-950/30 hover:shadow-lg active:scale-98"
+                          : "bg-crusta-500/30 hover:border-crusta-500 hover:text-crusta-400 border-stone-200 text-stone-200 hover:scale-102 hover:bg-stone-950/30 hover:shadow-lg active:scale-98"
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -317,10 +317,10 @@ export function Navbar() {
                 onTouchStart={() => handleTap("contact")}
                 className={`flex w-full items-center rounded-sm border text-base shadow-md transition-all duration-200 ease-in-out ${
                   tappedElement === "contact"
-                    ? "border-cerise-700 text-cerise-700 scale-[1.02] bg-stone-950/30 shadow-lg active:scale-[.98]"
+                    ? "border-cerise-700 text-cerise-700 scale-102 bg-stone-950/30 shadow-lg active:scale-98"
                     : theme === "dark"
-                      ? "bg-persian-800/30 hover:border-persian-500 hover:text-persian-500 border-stone-200 text-stone-200 hover:scale-[1.02] hover:bg-stone-950/30 hover:shadow-lg active:scale-[.98]"
-                      : "bg-cerise-900/30 hover:border-cerise-700 hover:text-cerise-700 border-stone-200 text-stone-200 hover:scale-[1.02] hover:bg-stone-950/30 hover:shadow-lg active:scale-[.98]"
+                      ? "bg-persian-800/30 hover:border-persian-500 hover:text-persian-500 border-stone-200 text-stone-200 hover:scale-102 hover:bg-stone-950/30 hover:shadow-lg active:scale-98"
+                      : "bg-cerise-900/30 hover:border-cerise-700 hover:text-cerise-700 border-stone-200 text-stone-200 hover:scale-102 hover:bg-stone-950/30 hover:shadow-lg active:scale-98"
                 }`}
               >
                 <Link href="/">Fale Conosco</Link>
@@ -337,7 +337,7 @@ export function Navbar() {
                 onTouchStart={() => handleSocialTap("instagram")}
               >
                 <span
-                  className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 ${
+                  className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 active:scale-90 ${
                     tappedSocial === "instagram"
                       ? "scale-130 bg-gradient-to-br from-purple-600 via-pink-600 to-yellow-300"
                       : theme === "dark"
@@ -363,7 +363,7 @@ export function Navbar() {
                 onTouchStart={() => handleSocialTap("youtube")}
               >
                 <span
-                  className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 ${
+                  className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 active:scale-90 ${
                     tappedSocial === "youtube"
                       ? "scale-130 bg-red-600"
                       : theme === "dark"
@@ -389,7 +389,7 @@ export function Navbar() {
                 onTouchStart={() => handleSocialTap("facebook")}
               >
                 <span
-                  className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 ${
+                  className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 active:scale-90 ${
                     tappedSocial === "facebook"
                       ? "scale-110 bg-blue-600"
                       : theme === "dark"

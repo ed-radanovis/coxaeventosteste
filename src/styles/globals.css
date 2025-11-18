@@ -64,7 +64,7 @@
   --color-persian-1200: #2a0303;
 }
 
-/* Fontes personalizadas */
+/* custom fonts */
 @font-face {
   font-family: 'Charis SIL';
   src: url('/fonts/CharisSIL-Regular.ttf') format('truetype');
@@ -115,7 +115,7 @@
   font-display: swap;
 }
 
-/* Variáveis de cores e temas */
+/* color and theme variables */
 :root {
 
   --font-charis-sil: 'Charis SIL', serif;

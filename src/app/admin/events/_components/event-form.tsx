@@ -20,11 +20,11 @@ import {
   ArrowLeft,
   Loader2,
 } from "lucide-react";
+import { useTheme } from "next-themes";
 
 interface EventFormProps {
   eventId?: string;
 }
-
 interface FormDataState {
   title: string;
   description: string;
@@ -36,7 +36,7 @@ interface FormDataState {
   isActive: boolean;
 }
 
-export default function EventForm({ eventId }: EventFormProps) {
+export function EventForm({ eventId }: EventFormProps) {
   const { userId, isLoaded } = useAuth();
   const router = useRouter();
   const isEditing = !!eventId;
@@ -52,6 +52,13 @@ export default function EventForm({ eventId }: EventFormProps) {
     isActive: true,
   });
 
+  // state to provide tap feedback on touch devices (replicates hover -> tap)
+  const [tappedElement, setTappedElement] = useState<string | null>(null);
+  const handleTap = (id: string, duration = 300) => {
+    setTappedElement(id);
+    window.setTimeout(() => setTappedElement(null), duration);
+  };
+
   // search for event if edition
   const { data: existingEvent, isLoading: loadingEvent } =
     api.admin.getAllEvents.useQuery(undefined, {
@@ -63,20 +70,25 @@ export default function EventForm({ eventId }: EventFormProps) {
   const createMutation = api.admin.createEvent.useMutation();
   const updateMutation = api.admin.updateEvent.useMutation();
 
+  const { theme } = useTheme();
+
   const isLoading =
     loadingEvent || createMutation.isPending || updateMutation.isPending;
 
   useEffect(() => {
     if (existingEvent) {
       setFormData({
-        title: existingEvent.title,
-        description: existingEvent.description,
-        date: new Date(existingEvent.date).toISOString().split("T")[0] ?? "",
-        location: existingEvent.location,
+        title: existingEvent.title ?? "",
+        description: existingEvent.description ?? "",
+        date:
+          (existingEvent.date
+            ? new Date(existingEvent.date).toISOString().split("T")[0]
+            : "") ?? "",
+        location: existingEvent.location ?? "",
         image: existingEvent.image ? String(existingEvent.image) : "",
         price: existingEvent.price ? String(existingEvent.price) : "",
-        isFeatured: existingEvent.isFeatured,
-        isActive: existingEvent.isActive,
+        isFeatured: !!existingEvent.isFeatured,
+        isActive: !!existingEvent.isActive,
       });
     }
   }, [existingEvent]);
@@ -109,10 +121,16 @@ export default function EventForm({ eventId }: EventFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const parsedDate = new Date(formData.date);
+    if (isNaN(parsedDate.getTime())) {
+      alert("Selecione uma data válida.");
+      return;
+    }
+
     const eventData = {
       title: formData.title,
       description: formData.description,
-      date: new Date(formData.date),
+      date: parsedDate,
       location: formData.location,
       image: formData.image || undefined,
       price: formData.price ? Number.parseFloat(formData.price) : undefined,
@@ -140,33 +158,45 @@ export default function EventForm({ eventId }: EventFormProps) {
 
   return (
     <div
-      className="min-h-screen bg-stone-50 p-6 dark:bg-stone-900"
+      className="min-h-screen bg-stone-300 p-6 dark:bg-stone-900"
       style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
     >
       {/* header */}
-      <div className="mb-8">
-        <div className="mb-4 flex items-center gap-4">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => router.push("/admin/events")}
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Voltar ao gerenciamento
-          </Button>
-          <h1 className="text-3xl font-bold text-stone-900 dark:text-stone-100">
-            {isEditing ? "Editar Evento" : "Novo Evento"}
-          </h1>
+      <div className="mb-4">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-stone-900 dark:text-stone-100">
+              {isEditing ? "Editar Evento" : "Novo Evento"}
+            </h1>
+            <p className="text-sm text-stone-600 dark:text-stone-400">
+              {isEditing
+                ? "Atualize as informações do evento"
+                : "Preencha os dados para criar um novo evento"}
+            </p>
+          </div>
         </div>
-        <p className="text-stone-600 dark:text-stone-400">
-          {isEditing
-            ? "Atualize as informações do evento"
-            : "Preencha os dados para criar um novo evento"}
-        </p>
       </div>
+      <Button
+        size="sm"
+        onClick={() => {
+          handleTap("back-button");
+          router.push("/admin/events");
+        }}
+        onTouchStart={() => handleTap("back-button")}
+        className={`flex items-center gap-2 border transition-all duration-300 ease-in-out ${
+          tappedElement === "back-button"
+            ? "scale-98"
+            : theme === "dark"
+              ? "bg-stone-600/60 text-stone-400 hover:scale-102 hover:bg-stone-600"
+              : "border-stone-400 bg-stone-100/80 text-stone-500 hover:scale-102 hover:bg-stone-100"
+        }`}
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Voltar ao gerenciamento
+      </Button>
 
       {/* form */}
-      <Card className="mx-auto max-w-4xl border border-stone-200 bg-white dark:border-stone-700 dark:bg-stone-800">
+      <Card className="mx-auto max-w-4xl border border-stone-200 bg-stone-100 dark:border-stone-700 dark:bg-stone-800">
         <CardHeader>
           <CardTitle className="text-stone-900 dark:text-stone-100">
             Informações do Evento
@@ -218,7 +248,7 @@ export default function EventForm({ eventId }: EventFormProps) {
                   htmlFor="date"
                   className="text-stone-700 dark:text-stone-300"
                 >
-                  <Calendar className="mr-2 inline h-4 w-4" />
+                  <Calendar className="mr-2 inline h-4 w-4 text-blue-900 dark:text-blue-700" />
                   Data do Evento *
                 </Label>
                 <Input
@@ -236,7 +266,7 @@ export default function EventForm({ eventId }: EventFormProps) {
                   htmlFor="location"
                   className="text-stone-700 dark:text-stone-300"
                 >
-                  <MapPin className="mr-2 inline h-4 w-4" />
+                  <MapPin className="text-crusta-500 dark:text-carrot-500 mr-2 inline h-4 w-4" />
                   Localização *
                 </Label>
                 <Input
@@ -257,7 +287,7 @@ export default function EventForm({ eventId }: EventFormProps) {
                   htmlFor="image"
                   className="text-stone-700 dark:text-stone-300"
                 >
-                  <ImageIcon className="mr-2 inline h-4 w-4" />
+                  <ImageIcon className="mr-2 inline h-4 w-4 text-amber-400 dark:text-amber-300" />
                   URL da Imagem
                 </Label>
                 <Input
@@ -277,7 +307,7 @@ export default function EventForm({ eventId }: EventFormProps) {
                   htmlFor="price"
                   className="text-stone-700 dark:text-stone-300"
                 >
-                  <DollarSign className="mr-2 inline h-4 w-4" />
+                  <DollarSign className="mr-2 inline h-4 w-4 text-green-800 dark:text-green-600" />
                   Preço (R$)
                 </Label>
                 <Input
@@ -307,11 +337,16 @@ export default function EventForm({ eventId }: EventFormProps) {
                     Aparecerá na seção principal
                   </p>
                 </div>
-                <Switch
-                  id="isFeatured"
-                  checked={formData.isFeatured}
-                  onCheckedChange={handleSwitchChange("isFeatured")}
-                />
+                <div
+                  onTouchStart={() => handleTap("isFeatured")}
+                  className={tappedElement === "isFeatured" ? "scale-95" : ""}
+                >
+                  <Switch
+                    id="isFeatured"
+                    checked={formData.isFeatured}
+                    onCheckedChange={handleSwitchChange("isFeatured")}
+                  />
+                </div>
               </div>
 
               <div className="flex items-center justify-between">
@@ -326,11 +361,16 @@ export default function EventForm({ eventId }: EventFormProps) {
                     Visível no site
                   </p>
                 </div>
-                <Switch
-                  id="isActive"
-                  checked={formData.isActive}
-                  onCheckedChange={handleSwitchChange("isActive")}
-                />
+                <div
+                  onTouchStart={() => handleTap("isActive")}
+                  className={tappedElement === "isActive" ? "scale-95" : ""}
+                >
+                  <Switch
+                    id="isActive"
+                    checked={formData.isActive}
+                    onCheckedChange={handleSwitchChange("isActive")}
+                  />
+                </div>
               </div>
             </div>
 
@@ -340,11 +380,21 @@ export default function EventForm({ eventId }: EventFormProps) {
                 type="button"
                 variant="outline"
                 onClick={() => router.push("/admin/events")}
+                onTouchStart={() => handleTap("cancel")}
                 disabled={isLoading}
+                className={tappedElement === "cancel" ? "scale-95" : ""}
               >
                 Cancelar
               </Button>
-              <Button type="submit" disabled={isLoading} className="flex-1">
+
+              <Button
+                type="submit"
+                disabled={isLoading}
+                onTouchStart={() => handleTap("submit", 1000)}
+                className={`flex-1 ${
+                  tappedElement === "submit" ? "scale-95" : ""
+                }`}
+              >
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

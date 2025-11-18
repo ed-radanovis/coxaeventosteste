@@ -393,7 +393,7 @@ export function About() {
             >
               <Button
                 onTouchStart={handleButtonTap}
-                className={`mb-12 flex items-center gap-2 rounded-sm border px-8 py-2 text-center text-lg font-semibold shadow-md transition-all duration-300 ease-in-out hover:scale-[1.02] active:scale-[.98] md:inline-flex ${
+                className={`mb-12 flex items-center gap-2 rounded-sm border px-8 py-2 text-center text-lg font-semibold shadow-md transition-all duration-300 ease-in-out hover:scale-102 active:scale-98 md:inline-flex ${
                   !mounted
                     ? "hover:border-crusta-500 hover:text-crusta-500 bg-crusta-500 border-stone-200 text-stone-200 shadow-md shadow-stone-950 hover:bg-stone-200 hover:shadow-lg"
                     : theme === "dark"
@@ -401,7 +401,7 @@ export function About() {
                       : "hover:border-crusta-500 hover:text-crusta-500 bg-crusta-500 border-stone-200 text-stone-200 shadow-md shadow-stone-950 hover:bg-stone-200 hover:shadow-lg"
                 } ${
                   isButtonTapped
-                    ? "scale-[1.02] shadow-lg " +
+                    ? "scale-102 shadow-lg " +
                       (theme === "dark"
                         ? "border-carrot-400 text-carrot-400 bg-stone-800"
                         : "border-crusta-500 text-crusta-500 bg-stone-200")

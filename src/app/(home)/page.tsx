@@ -2,8 +2,8 @@ import { generatePageMetadata } from "@/lib/metadata";
 import { Hero } from "./_components/hero";
 import { Navbar } from "./_components/navbar";
 import { About } from "./_components/about";
+import { DisplayCaseGrid } from "./_components/display-case-grid";
 import { WhatWeDo } from "./_components/what-we-do";
-import { ShowcaseGrid } from "./_components/show-case-grid";
 import { ServicesGrid } from "./_components/services-grid";
 import { MainTestimonial } from "./_components/main-testimonial";
 import { NewsAndViews } from "./_components/news-and-views";
@@ -24,7 +24,7 @@ export default async function Home() {
       <Navbar />
       <Hero />
       <About />
-      <ShowcaseGrid />
+      <DisplayCaseGrid />
       <WhatWeDo />
       <ServicesGrid />
       <MainTestimonial />

@@ -152,7 +152,7 @@ export function WhatWeDo() {
             viewport={{ once: false, amount: 0.3 }}
             href="/"
             onTouchStart={handleButtonTap}
-            className={`group relative mt-10 inline-flex items-center justify-center gap-3 rounded-sm border px-1 py-3 text-base font-medium transition-all duration-300 ease-in-out hover:scale-[1.02] active:scale-[.98] md:px-6 md:text-lg ${
+            className={`group relative mt-10 inline-flex items-center justify-center gap-3 rounded-sm border px-1 py-3 text-base font-medium transition-all duration-300 ease-in-out hover:scale-102 active:scale-98 md:px-6 md:text-lg ${
               !mounted
                 ? "hover:border-crusta-500 hover:text-crusta-500 bg-crusta-500 text-stone-200 shadow-lg shadow-stone-950 hover:bg-stone-100"
                 : theme === "dark"
@@ -160,7 +160,7 @@ export function WhatWeDo() {
                   : "hover:border-crusta-500 hover:text-crusta-500 bg-crusta-500 text-stone-200 shadow-lg shadow-stone-800 hover:bg-stone-100 hover:shadow-xl"
             } ${
               isButtonTapped
-                ? "scale-[1.02] shadow-lg " +
+                ? "scale-102 shadow-lg " +
                   (theme === "dark"
                     ? "!border-carrot-400 !text-carrot-400 bg-stone-900"
                     : "!border-crusta-500 !text-crusta-500 bg-stone-100")

@@ -155,13 +155,13 @@ export function ServicesGrid() {
 
               {/* title */}
               <h3
-                className={`text-md font-semibold transition-all duration-500 group-hover:scale-[1.08] ${
+                className={`text-md font-semibold transition-all duration-500 group-hover:scale-108 ${
                   theme === "dark"
                     ? "group-hover:text-carrot-500 text-stone-600"
                     : "text-crusta-500 group-hover:text-stone-600"
                 } ${
                   tappedItem === index
-                    ? "scale-[1.08] " +
+                    ? "scale-108 " +
                       (theme === "dark"
                         ? "!text-carrot-500"
                         : "!text-stone-600")

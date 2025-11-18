@@ -15,7 +15,7 @@ import Image from "next/image";
 import { SquareMousePointer, X } from "lucide-react";
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
-import { AdminUserButton } from "@/app/admin/events/_components/admin-user-button";
+import { AdminFooterButton } from "./admin-footer-button";
 
 export function Footer() {
   const { theme } = useTheme();
@@ -91,7 +91,7 @@ export function Footer() {
                 className="relative w-full overflow-hidden rounded-lg bg-stone-950"
                 style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
               >
-                {/* Header */}
+                {/* header */}
                 <div className="border-b border-stone-700 bg-stone-800/50 p-4">
                   <h3
                     className="text-carrot-400 text-center text-lg font-semibold"
@@ -215,7 +215,7 @@ export function Footer() {
                     onTouchStart={() => handleElementTap("instagram")}
                   >
                     <span
-                      className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 active:scale-95 ${
+                      className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 active:scale-90 ${
                         tappedElement === "instagram"
                           ? "scale-105 bg-gradient-to-br from-purple-600 via-pink-600 to-yellow-300 text-stone-100"
                           : theme === "dark"
@@ -246,7 +246,7 @@ export function Footer() {
                     onTouchStart={() => handleElementTap("youtube")}
                   >
                     <span
-                      className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 active:scale-95 ${
+                      className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 active:scale-90 ${
                         tappedElement === "youtube"
                           ? "scale-105 bg-red-600 text-stone-100"
                           : theme === "dark"
@@ -277,7 +277,7 @@ export function Footer() {
                     onTouchStart={() => handleElementTap("facebook")}
                   >
                     <span
-                      className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 active:scale-95 ${
+                      className={`flex h-10 w-10 items-center justify-center rounded-full text-lg transition-all duration-300 active:scale-90 ${
                         tappedElement === "facebook"
                           ? "scale-105 bg-blue-600 text-stone-100"
                           : theme === "dark"
@@ -450,8 +450,8 @@ export function Footer() {
                             ? "text-cerise-500 scale-102 bg-stone-900"
                             : "text-crusta-400 scale-102 bg-stone-200"
                           : theme === "dark"
-                            ? "hover:text-cerise-500 border-stone-600 bg-stone-900 text-stone-600 hover:scale-102 hover:bg-stone-900 active:scale-[.98]"
-                            : "hover:text-crusta-400 border-stone-400 bg-stone-200 text-stone-400 hover:scale-102 hover:bg-stone-200 active:scale-[.98]"
+                            ? "hover:text-cerise-500 border-stone-600 bg-stone-900 text-stone-600 hover:scale-102 hover:bg-stone-900 active:scale-98"
+                            : "hover:text-crusta-400 border-stone-400 bg-stone-200 text-stone-400 hover:scale-102 hover:bg-stone-200 active:scale-98"
                       }`}
                       style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
                     >
@@ -466,7 +466,7 @@ export function Footer() {
                       theme === "dark" ? "border-stone-600" : "border-stone-400"
                     }`}
                   >
-                    <AdminUserButton />
+                    <AdminFooterButton />
                   </div>
                 </SignedIn>
               </div>

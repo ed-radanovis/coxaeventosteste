@@ -46,10 +46,10 @@ export function ClientUserButton({ onNavigate }: ClientUserButtonProps) {
         onTouchStart={() => handleElementTap("client-access-navbar")}
         className={`flex w-2/3 items-center rounded-sm border text-sm shadow-md transition-all duration-200 ease-in-out ${
           tappedElement === "client-access-navbar"
-            ? "border-crusta-500 text-crusta-400 scale-[1.02] bg-stone-950/30 shadow-lg active:scale-[.98]"
+            ? "border-crusta-500 text-crusta-400 scale-102 bg-stone-950/30 shadow-lg active:scale-98"
             : theme === "dark"
-              ? "bg-carrot-500/30 hover:border-carrot-500 hover:text-carrot-400 border-stone-200 text-stone-200 hover:scale-[1.02] hover:bg-stone-950/30 hover:shadow-lg active:scale-[.98]"
-              : "bg-crusta-500/30 hover:border-crusta-500 hover:text-crusta-400 border-stone-200 text-stone-200 hover:scale-[1.02] hover:bg-stone-950/30 hover:shadow-lg active:scale-[.98]"
+              ? "bg-carrot-500/30 hover:border-carrot-500 hover:text-carrot-400 border-stone-200 text-stone-200 hover:scale-102 hover:bg-stone-950/30 hover:shadow-lg active:scale-98"
+              : "bg-crusta-500/30 hover:border-crusta-500 hover:text-crusta-400 border-stone-200 text-stone-200 hover:scale-102 hover:bg-stone-950/30 hover:shadow-lg active:scale-98"
         }`}
         style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
       >
@@ -62,12 +62,12 @@ export function ClientUserButton({ onNavigate }: ClientUserButtonProps) {
         tabIndex={0}
         onClick={handleUserButtonClick}
         onTouchStart={handleUserButtonClick}
-        className={`flex w-1/3 cursor-pointer items-center justify-center rounded-sm border text-base shadow-md transition-all duration-200 ease-in-out select-none active:scale-[.98] md:h-full ${
+        className={`flex w-1/3 cursor-pointer items-center justify-center rounded-sm border text-base shadow-md transition-all duration-200 ease-in-out select-none active:scale-98 md:h-full ${
           tappedElement === "user-button"
-            ? "border-crusta-500 text-crusta-400 scale-[1.02] bg-stone-950/30 shadow-lg active:scale-[.98]"
+            ? "border-crusta-500 text-crusta-400 scale-102 bg-stone-950/30 shadow-lg active:scale-98"
             : theme === "dark"
-              ? "bg-carrot-500/30 hover:border-carrot-500 hover:text-carrot-400 border-stone-200 text-stone-200 hover:scale-[1.02] hover:bg-stone-950/30 hover:shadow-lg active:scale-[.98]"
-              : "hover:border-crusta-500 hover:text-crusta-400 bg-crusta-500/30 border-stone-200 text-stone-200 hover:scale-[1.02] hover:bg-stone-950/30 hover:shadow-lg active:scale-[.98]"
+              ? "bg-carrot-500/30 hover:border-carrot-500 hover:text-carrot-400 border-stone-200 text-stone-200 hover:scale-102 hover:bg-stone-950/30 hover:shadow-lg active:scale-98"
+              : "hover:border-crusta-500 hover:text-crusta-400 bg-crusta-500/30 border-stone-200 text-stone-200 hover:scale-102 hover:bg-stone-950/30 hover:shadow-lg active:scale-98"
         }`}
       >
         <UserButton

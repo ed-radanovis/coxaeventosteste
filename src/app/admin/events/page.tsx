@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { generatePageMetadata } from "@/lib/metadata";
-import EventsManager from "./_components/events-manager";
+import { EventsManager } from "./_components/events-manager";
 
 export const metadata: Metadata = generatePageMetadata("Gerenciar Eventos");
 
