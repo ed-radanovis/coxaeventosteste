@@ -109,18 +109,18 @@ export function EventsManager() {
     >
       {/* header */}
       <div className="mb-4">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col justify-between md:flex-row md:items-center">
           <div>
             <h1 className="flex justify-center text-3xl font-bold text-stone-900 md:justify-start dark:text-stone-100">
               Gerenciar Eventos
             </h1>
-            <p className="mt-2 flex justify-center text-sm text-stone-600 md:justify-start dark:text-stone-400">
+            <p className="my-3 flex justify-center text-sm text-stone-600 md:justify-start dark:text-stone-400">
               Crie, edite e gerencie todos os eventos do site
             </p>
           </div>
           <div
             onTouchStart={() => handleTap("user-button")}
-            className={`mt-2 flex w-fit justify-center rounded-sm border px-2 py-1 transition-all duration-200 ease-in-out md:mr-40 ${
+            className={`mx-auto mt-2 flex w-fit justify-center rounded-sm border px-2 py-1 transition-all duration-200 ease-in-out md:mx-0 md:mr-40 ${
               tappedElement === "user-button"
                 ? "scale-95 border-stone-400"
                 : theme === "dark"
@@ -163,7 +163,7 @@ export function EventsManager() {
         </div>
       </div>
 
-      <div className="mb-4">
+      <div className="my-6">
         <Button
           size="sm"
           onClick={() => {
@@ -272,7 +272,7 @@ export function EventsManager() {
                       {event.isFeatured && (
                         <Badge
                           variant="secondary"
-                          className="border-crusta-300 bg-crusta-300/20 dark:border-carrot-100 dark:bg-carrot-600 dark:text-carrot-100 text-crusta-300"
+                          className="border-carrot-700 bg-carrot-100 dark:border-carrot-200 dark:bg-carrot-700 dark:text-carrot-200 text-carrot-700"
                         >
                           <Star className="mr-1 h-3 w-3" />
                           Destaque
@@ -281,8 +281,8 @@ export function EventsManager() {
                       <Badge
                         className={
                           event.isActive
-                            ? "border-green-900 bg-green-300 text-green-900 dark:border-green-100 dark:bg-green-600 dark:text-green-100"
-                            : "dark:bg-persian-800 text-persian-800 border-persian-800 bg-persian-100 dark:text-persian-100 dark:border-red-100"
+                            ? "border-green-900 bg-green-200 text-green-900 dark:border-green-300 dark:bg-green-900 dark:text-green-300"
+                            : "dark:bg-persian-800 text-persian-800 border-persian-800 bg-persian-100 dark:text-persian-200 dark:border-persian-200"
                         }
                       >
                         {event.isActive ? "Ativo" : "Inativo"}
@@ -370,7 +370,7 @@ export function EventsManager() {
             </Card>
           ))
         ) : (
-          <Card className="border border-stone-200 bg-white dark:border-stone-700 dark:bg-stone-800">
+          <Card className="border border-stone-200 bg-stone-50 dark:border-stone-700 dark:bg-stone-800">
             <CardContent className="p-12 text-center">
               <Calendar className="mx-auto mb-4 h-16 w-16 text-stone-400" />
               <h3 className="mb-2 text-lg font-semibold text-stone-900 dark:text-stone-100">

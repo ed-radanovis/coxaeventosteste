@@ -40,7 +40,7 @@ export function ImageUpload({ value, onChange, disabled }: ImageUploadProps) {
   return (
     <div className="space-y-2">
       <Label className="text-stone-700 dark:text-stone-300">
-        <ImageIcon className="mr-2 inline h-4 w-4 text-amber-400 dark:text-amber-500" />
+        <ImageIcon className="mr-2 inline h-4 w-4 text-amber-500 dark:text-amber-300" />
         Imagem *
       </Label>
 

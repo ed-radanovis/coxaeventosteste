@@ -18,6 +18,7 @@ import {
   Youtube,
   ArrowLeft,
   GripVertical,
+  GripHorizontal,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -87,9 +88,9 @@ function SortableDisplayCaseItem({
   const getTypeIcon = (type: string) => {
     switch (type.toLowerCase()) {
       case "youtube":
-        return <Youtube className="h-4 w-4 text-red-600" />;
+        return <Youtube className="h-4 w-4 text-red-900 dark:text-red-500" />;
       case "video":
-        return <Video className="h-4 w-4 text-blue-600" />;
+        return <Video className="h-4 w-4 text-blue-900 dark:text-blue-500" />;
       default:
         return <Video className="h-4 w-4" />;
     }
@@ -108,31 +109,32 @@ function SortableDisplayCaseItem({
 
   return (
     <div ref={setNodeRef} style={style}>
-      <Card className="border border-stone-200 bg-stone-100 transition-all duration-300 hover:shadow-lg dark:border-stone-700 dark:bg-stone-700/50">
+      <Card className="border border-stone-200 bg-stone-100 py-2 transition-all duration-300 hover:shadow-lg md:py-4 dark:border-stone-700 dark:bg-stone-700/50">
         <CardContent className="p-4">
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-4">
             {/* drag handle */}
             <div
               {...attributes}
               {...listeners}
-              className="flex cursor-grab items-center text-stone-400 active:cursor-grabbing"
+              className="flex cursor-grab touch-none items-center justify-center text-stone-400 active:cursor-grabbing sm:justify-start"
             >
-              <GripVertical className="h-5 w-5" />
+              <GripVertical className="hidden h-8 w-8 sm:block" />
+              <GripHorizontal className="h-8 w-8 sm:hidden" />
             </div>
 
             {/* information */}
-            <div className="flex-1">
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="mb-2 text-lg font-semibold text-stone-900 dark:text-stone-100">
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
+                <div className="min-w-0 flex-1">
+                  <h3 className="mb-3 text-center text-lg font-semibold break-words text-stone-900 md:text-start dark:text-stone-100">
                     {item.title}
                   </h3>
                   {item.description && (
-                    <p className="mb-2 text-sm text-stone-600 dark:text-stone-400">
+                    <p className="mb-2 text-sm break-words text-stone-600 dark:text-stone-400">
                       {item.description}
                     </p>
                   )}
-                  <div className="flex flex-wrap items-center gap-4 text-sm text-stone-500 dark:text-stone-400">
+                  <div className="flex flex-col gap-2 text-sm text-stone-500 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 dark:text-stone-400">
                     <span className="flex items-center gap-1">
                       {getTypeIcon(item.type)}
                       {getTypeText(item.type)}
@@ -147,14 +149,14 @@ function SortableDisplayCaseItem({
             </div>
 
             {/* status / actions */}
-            <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-end">
               {/* badges */}
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap justify-center sm:justify-start">
                 <Badge
                   className={
                     item.isActive
-                      ? "border-green-900 bg-green-300 text-green-900 dark:border-green-100 dark:bg-green-600 dark:text-green-100"
-                      : "dark:bg-persian-800 text-persian-800 border-persian-800 bg-persian-100 dark:text-persian-100 dark:border-red-100"
+                      ? "border-green-900 bg-green-200 text-green-900 dark:border-green-300 dark:bg-green-900 dark:text-green-300"
+                      : "dark:bg-persian-800 text-persian-800 border-persian-800 bg-persian-100 dark:text-persian-200 dark:border-persian-200"
                   }
                 >
                   {item.isActive ? "Ativo" : "Inativo"}
@@ -162,7 +164,7 @@ function SortableDisplayCaseItem({
               </div>
 
               {/* CTA buttons */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center justify-center gap-10 sm:justify-start md:gap-2">
                 <Button
                   variant="outline"
                   size="sm"
@@ -246,10 +248,12 @@ export function DisplayCaseManager() {
     api.adminDisplayCase.toggleDisplayCase.useMutation({
       onSuccess: () => refetch(),
     });
-
-  // drag and drop sensors
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
@@ -328,18 +332,19 @@ export function DisplayCaseManager() {
     >
       {/* header */}
       <div className="mb-4">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col justify-between md:flex-row md:items-center">
           <div>
             <h1 className="flex justify-center text-3xl font-bold text-stone-900 md:justify-start dark:text-stone-100">
               Gerenciar Vitrines
             </h1>
-            <p className="mt-2 flex justify-center text-sm text-stone-600 md:justify-start dark:text-stone-400">
-              Arraste para reordenar • Clique para editar ou excluir
-            </p>
+            <div className="my-3 flex flex-col items-center justify-center text-sm text-stone-600 md:flex-row md:justify-start dark:text-stone-400">
+              <p>Arraste para reordenar &nbsp;•&nbsp;</p>
+              <p>Clique para editar ou excluir</p>
+            </div>
           </div>
           <div
             onTouchStart={() => handleTap("user-button")}
-            className={`mt-2 flex w-fit justify-center rounded-sm border px-2 py-1 transition-all duration-200 ease-in-out md:mr-40 ${
+            className={`mx-auto mt-2 flex w-fit justify-center rounded-sm border px-2 py-1 transition-all duration-200 ease-in-out md:mx-0 md:mr-40 ${
               tappedElement === "user-button"
                 ? "scale-95 border-stone-400"
                 : theme === "dark"
@@ -382,7 +387,7 @@ export function DisplayCaseManager() {
         </div>
       </div>
 
-      <div className="mb-4">
+      <div className="my-6">
         <Button
           size="sm"
           onClick={() => {
@@ -405,20 +410,20 @@ export function DisplayCaseManager() {
 
       {/* search bar / statistics */}
       <Card className="mb-6 border border-stone-200 bg-stone-200 dark:border-stone-700 dark:bg-stone-800/80">
-        <CardContent className="p-6">
+        <CardContent className="px-4 py-2 md:px-6 md:py-4">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform text-stone-400" />
+                <Search className="absolute top-1/2 left-2 h-4 w-4 -translate-y-1/2 transform" />
                 <Input
                   placeholder="Buscar Vitrines por título ou descrição..."
                   value={searchTerm}
                   onChange={handleSearchChange}
-                  className="border-stone-200 bg-stone-50 pl-10 dark:border-stone-600 dark:bg-stone-700/50"
+                  className="border-stone-200 bg-stone-50 pl-8 text-xs md:text-base dark:border-stone-600 dark:bg-stone-700/50"
                 />
               </div>
             </div>
-            <div className="flex items-center gap-4 text-sm text-stone-600 dark:text-stone-400">
+            <div className="flex items-center justify-center gap-20 text-sm text-stone-600 md:gap-4 dark:text-stone-400">
               <span>Total: {displayCases?.length ?? 0}</span>
               <span>
                 Ativos: {displayCases?.filter((e) => e.isActive).length ?? 0}
@@ -452,7 +457,7 @@ export function DisplayCaseManager() {
                 />
               ))
             ) : (
-              <Card className="border border-stone-200 bg-white dark:border-stone-700 dark:bg-stone-800">
+              <Card className="border border-stone-200 bg-stone-50 dark:border-stone-700 dark:bg-stone-800">
                 <CardContent className="p-12 text-center">
                   <Video className="mx-auto mb-4 h-16 w-16 text-stone-400" />
                   <h3 className="mb-2 text-lg font-semibold text-stone-900 dark:text-stone-100">

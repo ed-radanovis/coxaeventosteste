@@ -36,7 +36,7 @@ export function VideoUpload({ value, onChange, disabled }: VideoUploadProps) {
   return (
     <div className="space-y-2">
       <Label className="text-stone-700 dark:text-stone-300">
-        <VideoIcon className="mr-2 inline h-4 w-4 text-blue-700" />
+        <VideoIcon className="mr-2 inline h-4 w-4 text-blue-900 dark:text-blue-700" />
         Vídeo *
       </Label>
 
@@ -66,11 +66,11 @@ export function VideoUpload({ value, onChange, disabled }: VideoUploadProps) {
       <div className="flex items-center gap-2">
         <LinkIcon className="h-4 w-4 text-stone-500" />
         <Input
-          placeholder="Cole um link do YouTube ou caminho de vídeo..."
+          placeholder="Cole um link do YT ou caminho de vídeo..."
           value={value}
           onChange={(e) => onChange(e.target.value)}
           disabled={disabled}
-          className="border-stone-300 bg-stone-50 dark:border-stone-600 dark:bg-stone-700"
+          className="border-stone-300 bg-stone-50 text-xs dark:border-stone-600 dark:bg-stone-700"
         />
       </div>
 

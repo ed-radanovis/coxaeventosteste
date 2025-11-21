@@ -163,12 +163,12 @@ export function EventForm({ eventId }: EventFormProps) {
     >
       {/* header */}
       <div className="mb-4">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col justify-between md:flex-row md:items-center">
           <div>
-            <h1 className="text-3xl font-bold text-stone-900 dark:text-stone-100">
+            <h1 className="flex justify-center text-3xl font-bold text-stone-900 md:justify-start dark:text-stone-100">
               {isEditing ? "Editar Evento" : "Novo Evento"}
             </h1>
-            <p className="text-sm text-stone-600 dark:text-stone-400">
+            <p className="my-3 flex justify-center text-sm text-stone-600 md:justify-start dark:text-stone-400">
               {isEditing
                 ? "Atualize as informações do evento"
                 : "Preencha os dados para criar um novo evento"}
@@ -183,7 +183,7 @@ export function EventForm({ eventId }: EventFormProps) {
           router.push("/admin/events");
         }}
         onTouchStart={() => handleTap("back-button")}
-        className={`flex items-center gap-2 border transition-all duration-300 ease-in-out ${
+        className={`mb-6 flex items-center gap-2 border transition-all duration-300 ease-in-out ${
           tappedElement === "back-button"
             ? "scale-98"
             : theme === "dark"
@@ -287,7 +287,7 @@ export function EventForm({ eventId }: EventFormProps) {
                   htmlFor="image"
                   className="text-stone-700 dark:text-stone-300"
                 >
-                  <ImageIcon className="mr-2 inline h-4 w-4 text-amber-400 dark:text-amber-300" />
+                  <ImageIcon className="mr-2 inline h-4 w-4 text-amber-500 dark:text-amber-300" />
                   URL da Imagem
                 </Label>
                 <Input
@@ -382,7 +382,7 @@ export function EventForm({ eventId }: EventFormProps) {
                 onClick={() => router.push("/admin/events")}
                 onTouchStart={() => handleTap("cancel")}
                 disabled={isLoading}
-                className={tappedElement === "cancel" ? "scale-95" : ""}
+                className={`$ {tappedElement === "cancel" ? "scale-95" : ""} transition-all duration-300 active:scale-95`}
               >
                 Cancelar
               </Button>
@@ -391,9 +391,9 @@ export function EventForm({ eventId }: EventFormProps) {
                 type="submit"
                 disabled={isLoading}
                 onTouchStart={() => handleTap("submit", 1000)}
-                className={`flex-1 ${
+                className={`flex-1 transition-all duration-300 ${
                   tappedElement === "submit" ? "scale-95" : ""
-                }`}
+                } active:scale-95`}
               >
                 {isLoading ? (
                   <>

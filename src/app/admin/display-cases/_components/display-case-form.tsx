@@ -91,7 +91,6 @@ export function DisplayCaseForm({ displayCaseId }: DisplayCaseFormProps) {
   }, [isLoaded, userId, router]);
 
   // helpers validation / detection
-
   const isAbsoluteUrl = (value: string) => {
     try {
       const u = new URL(value);
@@ -276,12 +275,12 @@ export function DisplayCaseForm({ displayCaseId }: DisplayCaseFormProps) {
     >
       {/* header */}
       <div className="mb-4">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col justify-between md:flex-row md:items-center">
           <div>
-            <h1 className="text-3xl font-bold text-stone-900 dark:text-stone-100">
+            <h1 className="flex justify-center text-3xl font-bold text-stone-900 md:justify-start dark:text-stone-100">
               {isEditing ? "Editar Vitrine" : "Nova Vitrine"}
             </h1>
-            <p className="text-sm text-stone-600 dark:text-stone-400">
+            <p className="my-3 flex justify-center text-sm text-stone-600 md:justify-start dark:text-stone-400">
               {isEditing
                 ? "Atualize as informações da Vitrine"
                 : "Preencha os dados para criar uma nova Vitrine"}
@@ -297,7 +296,7 @@ export function DisplayCaseForm({ displayCaseId }: DisplayCaseFormProps) {
           router.push("/admin/display-cases");
         }}
         onTouchStart={() => handleTap("back-button")}
-        className={`flex items-center gap-2 border transition-all duration-300 ease-in-out ${
+        className={`mb-6 flex items-center gap-2 border transition-all duration-300 ease-in-out ${
           tappedElement === "back-button"
             ? "scale-98"
             : theme === "dark"
@@ -384,8 +383,10 @@ export function DisplayCaseForm({ displayCaseId }: DisplayCaseFormProps) {
                   disabled
                   className="flex h-10 w-full cursor-not-allowed rounded-md border border-stone-200 bg-stone-50 px-3 py-2 text-sm ring-offset-white focus:outline-none dark:border-stone-600 dark:bg-stone-700"
                 >
-                  <option value="video">🎥 Vídeo Local - MP4 </option>
-                  <option value="youtube">YouTube</option>
+                  <option value="video">
+                    🎥 &nbsp;&nbsp; Vídeo Local - MP4{" "}
+                  </option>
+                  <option value="youtube">🔴▶ &nbsp;&nbsp; YouTube</option>
                 </select>
 
                 <p className="text-xs text-stone-500 dark:text-stone-400">
@@ -401,11 +402,13 @@ export function DisplayCaseForm({ displayCaseId }: DisplayCaseFormProps) {
                 onChange={(value) => handleChange("href", value)}
                 disabled={isLoading}
               />
-              <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
-                Para links (ex: https://youtu.be/ID ou
-                https://www.youtube.com/watch?v=ID) ❗ Conversão automática para
-                EMBED.
-              </p>
+              <div className="my-2 flex flex-col items-center justify-center text-xs text-stone-600 md:flex-row md:justify-start dark:text-stone-400">
+                <p className="text-justify tracking-widest md:tracking-normal">
+                  Para links (ex: https://youtu.be/ID ou
+                  https://www.youtube.com/watch?v=ID) &nbsp;
+                </p>
+                <p>❗ &nbsp;Conversão automática para EMBED.</p>
+              </div>
             </div>
 
             {/* switch */}
@@ -443,7 +446,7 @@ export function DisplayCaseForm({ displayCaseId }: DisplayCaseFormProps) {
                 onClick={() => router.push("/admin/display-cases")}
                 onTouchStart={() => handleTap("cancel")}
                 disabled={isLoading}
-                className={tappedElement === "cancel" ? "scale-95" : ""}
+                className={`$ {tappedElement === "cancel" ? "scale-95" : ""} transition-all duration-300 active:scale-95`}
               >
                 Cancelar
               </Button>
@@ -452,7 +455,7 @@ export function DisplayCaseForm({ displayCaseId }: DisplayCaseFormProps) {
                 type="submit"
                 disabled={isLoading}
                 onTouchStart={() => handleTap("submit", 1000)}
-                className={`flex-1 ${tappedElement === "submit" ? "scale-95" : ""}`}
+                className={`flex-1 transition-all duration-300 ${tappedElement === "submit" ? "scale-95" : ""} active:scale-95`}
               >
                 {isLoading ? (
                   <>

@@ -87,12 +87,12 @@ export function AdminDashboard() {
     >
       {/* Header */}
       <div className="mb-4">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col items-center justify-between md:flex-row">
           <div>
             <h1 className="flex justify-center text-3xl font-bold text-stone-900 md:justify-start dark:text-stone-100">
               Painel Administrativo
             </h1>
-            <p className="mt-2 flex justify-center text-sm text-stone-600 md:justify-start dark:text-stone-400">
+            <p className="my-3 flex justify-center text-sm text-stone-600 md:justify-start dark:text-stone-400">
               Selecione uma área para gerenciar
             </p>
           </div>
@@ -125,7 +125,7 @@ export function AdminDashboard() {
         </div>
       </div>
 
-      <div className="mb-6">
+      <div className="my-6">
         <BackToFooterButton />
       </div>
 
