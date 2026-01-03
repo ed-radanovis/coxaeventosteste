@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { SignOutButton } from "@clerk/nextjs";
-import { Home, ShieldAlert, LogOut, ArrowRight } from "lucide-react";
+import { Home, ShieldAlert, LogOut, ArrowRight, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
@@ -19,12 +19,14 @@ interface AccessDeniedDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   userRole?: string;
+  forceAction?: boolean; // forces the user to choose an action
 }
 
 export function AccessDeniedDialog({
   open,
   onOpenChange,
   userRole,
+  forceAction = false,
 }: AccessDeniedDialogProps) {
   const router = useRouter();
   const { theme } = useTheme();
@@ -41,8 +43,21 @@ export function AccessDeniedDialog({
   };
 
   const handleClose = () => {
-    onOpenChange(false);
-    router.push("/");
+    if (forceAction) {
+      router.push("/");
+    } else {
+      onOpenChange(false);
+      router.push("/");
+    }
+  };
+
+  // handler stops when the dialog attempts to close by clicking the overlay or pressing ESC.
+  const handleOpenChange = (newOpen: boolean) => {
+    if (forceAction && !newOpen) {
+      router.push("/");
+      return;
+    }
+    onOpenChange(newOpen);
   };
 
   if (!mounted) {
@@ -50,10 +65,20 @@ export function AccessDeniedDialog({
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent
         className="border border-stone-200 sm:max-w-md dark:border-stone-700"
         style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
+        onInteractOutside={(e) => {
+          if (forceAction) {
+            e.preventDefault();
+          }
+        }}
+        onEscapeKeyDown={(e) => {
+          if (forceAction) {
+            e.preventDefault();
+          }
+        }}
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -61,6 +86,15 @@ export function AccessDeniedDialog({
           exit={{ opacity: 0, scale: 0.9 }}
           transition={{ type: "spring", damping: 25 }}
         >
+          {!forceAction && (
+            <button
+              onClick={handleClose}
+              className="absolute -top-12 right-0 z-10 rounded-full bg-stone-100/10 p-2 text-stone-100 backdrop-blur-sm transition-all hover:scale-110 hover:bg-stone-100/20"
+            >
+              <X className="h-6 w-6" />
+            </button>
+          )}
+
           <DialogHeader>
             {/* animated icon */}
             <motion.div

@@ -15,8 +15,8 @@ export function AdminAccessGuard({
 }: AdminAccessGuardProps) {
   const { user, isLoaded } = useUser();
   const router = useRouter();
-  const [showDialog, setShowDialog] = useState(false);
   const [checkedAccess, setCheckedAccess] = useState(false);
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -28,35 +28,38 @@ export function AdminAccessGuard({
 
     if (user) {
       const role = user.publicMetadata?.role as string | undefined;
+      const userIsAdmin = role === "admin";
 
-      if (role !== "admin") {
-        setShowDialog(true);
-        setCheckedAccess(true);
-      } else {
-        setCheckedAccess(true);
-      }
+      setIsAdmin(userIsAdmin);
+      setCheckedAccess(true);
+    } else {
+      setCheckedAccess(true);
     }
-
-    setCheckedAccess(true);
   }, [user, isLoaded, requireLogin, router]);
 
-  if (showDialog && user) {
-    const role = user.publicMetadata?.role as string | undefined;
+  // if not admin => block with forceAction
+  if (isAdmin === false) {
     return (
-      <>
-        <Loading />
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/80 backdrop-blur-sm">
         <AccessDeniedDialog
-          open={showDialog}
-          onOpenChange={setShowDialog}
-          userRole={role}
+          open={true}
+          onOpenChange={(open) => {
+            // attempt to close, force redirection
+            if (!open) {
+              router.push("/");
+            }
+          }}
+          userRole={user?.publicMetadata?.role as string | undefined}
+          forceAction={true}
         />
-      </>
+      </div>
     );
   }
 
-  if (checkedAccess && !showDialog) {
-    return null;
+  if (!checkedAccess) {
+    return <Loading />;
   }
 
-  return <Loading />;
+  // if admin → allows access
+  return null;
 }

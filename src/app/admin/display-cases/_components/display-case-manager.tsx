@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { api } from "@/trpc/react";
 import { Loading } from "@/components/ui/loading";
-import { useAuth, UserButton } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -220,7 +220,6 @@ function SortableDisplayCaseItem({
 }
 
 export function DisplayCaseManager() {
-  const { userId, isLoaded } = useAuth();
   const router = useRouter();
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -261,10 +260,7 @@ export function DisplayCaseManager() {
 
   useEffect(() => {
     setMounted(true);
-    if (isLoaded && !userId) {
-      router.push("/sign-in");
-    }
-  }, [isLoaded, userId, router]);
+  }, []);
 
   const handleTap = (elementId: string) => {
     setTappedElement(elementId);
@@ -322,8 +318,7 @@ export function DisplayCaseManager() {
     router.push(`/admin/display-cases/${id}`);
   };
 
-  if (!mounted || !isLoaded || isLoading) return <Loading />;
-  if (!userId) return <Loading />;
+  if (!mounted || isLoading) return <Loading />;
 
   return (
     <div

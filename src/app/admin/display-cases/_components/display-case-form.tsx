@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { api } from "@/trpc/react";
 import { Loading } from "@/components/ui/loading";
-import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTheme } from "next-themes";
@@ -32,11 +31,11 @@ interface FormDataState {
 }
 
 export function DisplayCaseForm({ displayCaseId }: DisplayCaseFormProps) {
-  const { userId, isLoaded } = useAuth();
   const router = useRouter();
   const isEditing = !!displayCaseId;
   const { theme } = useTheme();
 
+  const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState<FormDataState>({
     title: "",
     image: "",
@@ -83,12 +82,9 @@ export function DisplayCaseForm({ displayCaseId }: DisplayCaseFormProps) {
     }
   }, [existingDisplayCase]);
 
-  // redirect if not authed
   useEffect(() => {
-    if (isLoaded && !userId) {
-      router.push("/sign-in");
-    }
-  }, [isLoaded, userId, router]);
+    setMounted(true);
+  }, []);
 
   // helpers validation / detection
   const isAbsoluteUrl = (value: string) => {
@@ -205,7 +201,6 @@ export function DisplayCaseForm({ displayCaseId }: DisplayCaseFormProps) {
     };
 
   // submit validation / mutation
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -264,9 +259,7 @@ export function DisplayCaseForm({ displayCaseId }: DisplayCaseFormProps) {
     }
   };
 
-  if (!isLoaded) return <Loading />;
-  if (!userId) return <Loading />;
-  if (isEditing && loadingDisplayCase) return <Loading />;
+  if (!mounted || (isEditing && loadingDisplayCase)) return <Loading />;
 
   return (
     <div
