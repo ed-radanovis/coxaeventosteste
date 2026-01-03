@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
 import { SectionSeparator } from "@/components/ui/section-separator";
@@ -23,37 +23,14 @@ export function MainTestimonial() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [index, setIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const inViewRef = useRef(false);
   const autoplayMs = 4000;
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const obs = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry) {
-          setIsPaused(!entry.isIntersecting);
-        }
-      },
-      { threshold: 0.5 },
-    );
-
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
   // autoplay
   useEffect(() => {
-    if (isPaused) return;
-
     const timer = setInterval(() => {
       setIndex((currentIndex) => {
         const nextIndex = currentIndex + 1;
@@ -62,12 +39,7 @@ export function MainTestimonial() {
     }, autoplayMs);
 
     return () => clearInterval(timer);
-  }, [isPaused]);
-
-  const handleMouseEnter = () => setIsPaused(true);
-  const handleMouseLeave = () => {
-    if (inViewRef.current) setIsPaused(false);
-  };
+  }, []);
 
   const testimonial = (TESTIMONIALS[index] ?? TESTIMONIALS[0])!;
 
@@ -117,9 +89,6 @@ export function MainTestimonial() {
   return (
     <section
       id="main-testimonial"
-      ref={containerRef}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
       className={`relative flex h-dvh items-start justify-center overflow-hidden pt-48 transition-colors duration-700 sm:pt-24 md:items-center md:py-20 ${
         theme === "dark"
           ? "bg-stone-800 text-stone-100"
@@ -205,7 +174,7 @@ export function MainTestimonial() {
                 onClick={() => setIndex(i)}
                 aria-label={`Go to testimonial ${i + 1}`}
                 className={`h-[6px] w-4 rounded-full transition-all duration-300 md:w-8 ${
-                  i === index ? "bg-carrot-400" : "bg-white/30"
+                  i === index ? "bg-carrot-400 scale-125" : "bg-white/30"
                 }`}
               />
             ))}
