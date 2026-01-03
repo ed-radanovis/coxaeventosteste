@@ -439,8 +439,8 @@ export function Footer() {
                 <SignedOut>
                   <SignInButton
                     mode="modal"
-                    forceRedirectUrl={`${typeof window !== "undefined" ? window.location.origin : ""}/admin/events`}
-                    fallbackRedirectUrl={`${typeof window !== "undefined" ? window.location.origin : ""}/admin/events`}
+                    forceRedirectUrl={`${typeof window !== "undefined" ? window.location.origin : ""}/admin`}
+                    fallbackRedirectUrl={`${typeof window !== "undefined" ? window.location.origin : ""}/admin`}
                   >
                     <Button
                       onTouchStart={() => handleElementTap("admin-access")}

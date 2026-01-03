@@ -32,19 +32,18 @@ export function MainTestimonial() {
     setMounted(true);
   }, []);
 
-  // intersection observer
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
     const obs = new IntersectionObserver(
       (entries) => {
-        const entry = entries?.[0];
-        if (!entry) return;
-        inViewRef.current = entry.isIntersecting;
-        setIsPaused(!entry.isIntersecting);
+        const entry = entries[0];
+        if (entry) {
+          setIsPaused(!entry.isIntersecting);
+        }
       },
-      { threshold: 0.35 },
+      { threshold: 0.5 },
     );
 
     obs.observe(el);
@@ -54,10 +53,15 @@ export function MainTestimonial() {
   // autoplay
   useEffect(() => {
     if (isPaused) return;
-    const t = setInterval(() => {
-      setIndex((s) => (s + 1) % TESTIMONIALS.length);
+
+    const timer = setInterval(() => {
+      setIndex((currentIndex) => {
+        const nextIndex = currentIndex + 1;
+        return nextIndex >= TESTIMONIALS.length ? 0 : nextIndex;
+      });
     }, autoplayMs);
-    return () => clearInterval(t);
+
+    return () => clearInterval(timer);
   }, [isPaused]);
 
   const handleMouseEnter = () => setIsPaused(true);
