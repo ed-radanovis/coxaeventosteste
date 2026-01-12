@@ -247,7 +247,7 @@ export function DisplayCaseGrid() {
                 }`}
               />
 
-              {/* Overlay */}
+              {/* overlay */}
               <div
                 className={`absolute inset-0 bg-stone-950/80 transition-all duration-500 ease-in-out group-hover:opacity-100 ${
                   tappedCard === index ? "opacity-100" : "opacity-0"

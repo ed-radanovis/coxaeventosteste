@@ -1,0 +1,16 @@
+{
+  // Configurações específicas para Prisma
+  "prisma.disableValidation": true,
+  "prisma.enableExperimentalFeatures": false,
+  // Configurações gerais
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  // Para TypeScript/React
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "emmet.includeLanguages": {
+    "typescriptreact": "html"
+  }
+}

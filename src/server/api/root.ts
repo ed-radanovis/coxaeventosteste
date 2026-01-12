@@ -26,13 +26,17 @@ import { eventRouter } from "./routers/event";
 import { adminRouter } from "./routers/admin-event";
 import { displayCaseRouter } from "./routers/display_case";
 import { adminDisplayCaseRouter } from "./routers/admin-display_case";
+import { teamMemberRouter } from "./routers/team-member";
+import { adminTeamMemberRouter } from "./routers/admin-team-member";
 
 export const appRouter = createTRPCRouter({
   event: eventRouter,
   admin: adminRouter,
   displayCase: displayCaseRouter,
   adminDisplayCase: adminDisplayCaseRouter,
-  // depois adicionamos: testimonial, news, etc.
+  adminTeamMember: adminTeamMemberRouter,
+  teamMember: teamMemberRouter,
+  // depois adicionar: testimonial, news, etc.
 });
 
 export type AppRouter = typeof appRouter;

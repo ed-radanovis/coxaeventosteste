@@ -141,6 +141,26 @@ model News {
   @@map("news")
 }
 
+model TeamMember {
+  id              String   @id @default(cuid())
+  name            String
+  role            String
+  image           String
+  description     String
+  expertise       String[]
+  linkedin        String?
+  instagram       String?
+  youtube         String?
+  email           String?
+  yearsExperience Int      @default(0)
+  isActive        Boolean  @default(true)
+  order           Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("team_members")
+}
+
 enum UserRole {
   CLIENT
   ADMIN

@@ -155,7 +155,7 @@ export function ClientsCarousel() {
               >
                 {/* logo container */}
                 <div
-                  className="group flex h-[20vw] w-[40vw] items-center justify-center px-2 md:h-[10vw] md:w-[20vw] md:px-20"
+                  className="group flex h-[20vw] w-[40vw] items-center justify-center px-2 lg:h-[10vw] lg:w-[20vw] lg:px-20"
                   onTouchStart={() => handleTap(company.id)}
                 >
                   <motion.div
@@ -169,7 +169,7 @@ export function ClientsCarousel() {
                       alt={`Logo ${company.name}`}
                       width={100}
                       height={60}
-                      className={`scale-60 object-contain transition-all duration-300 md:scale-80 ${
+                      className={`scale-60 object-contain transition-all duration-300 md:scale-160 lg:scale-80 ${
                         company.invert
                           ? "grayscale invert group-hover:grayscale-0 group-hover:invert-0"
                           : "grayscale group-hover:grayscale-0"
@@ -187,7 +187,7 @@ export function ClientsCarousel() {
                     whileInView={{ opacity: 1, scaleY: 1 }}
                     transition={{ duration: 0.6, ease: "easeInOut" }}
                     viewport={{ once: false, amount: 0.3 }}
-                    className={`h-[20vw] w-[1px] rounded-full md:block md:h-[10vw] ${
+                    className={`h-[20vw] w-[1px] rounded-full md:block md:h-[15vw] lg:block lg:h-[10vw] ${
                       theme === "dark" ? "bg-stone-600/50" : "bg-stone-700/50"
                     }`}
                     style={{

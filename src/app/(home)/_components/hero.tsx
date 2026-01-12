@@ -72,7 +72,7 @@ export function Hero() {
         </AnimatePresence>
       </div>
 
-      {/* Overlay */}
+      {/* overlay */}
       <div
         className={`absolute inset-0 z-[1] transition-colors duration-700 ${
           theme === "dark"
@@ -196,7 +196,7 @@ export function Hero() {
               </motion.div>
 
               {/* social icons */}
-              <div className="mt-16 flex items-center justify-center gap-4 md:mt-6 md:justify-normal">
+              <div className="mt-16 flex items-center justify-center gap-4 md:mt-10 md:justify-normal">
                 <Link
                   href="https://www.instagram.com/coxaeventos/"
                   target="_blank"

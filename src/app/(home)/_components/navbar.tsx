@@ -11,6 +11,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { FaFacebook, FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa";
 import { useTheme } from "next-themes";
+import { useCurrentRoute } from "@/hooks/use-current-route";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,9 +19,25 @@ export function Navbar() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
+  const currentRoute = useCurrentRoute();
+
   // states for taps
   const [tappedElement, setTappedElement] = useState<string | null>(null);
   const [tappedSocial, setTappedSocial] = useState<string | null>(null);
+
+  const transparentRoutes = [
+    "/who-are-we",
+    "/what-we-do",
+    "/portfolio",
+    "/contact",
+    "/news",
+  ];
+
+  const isTransparentPage = transparentRoutes.some((route) =>
+    currentRoute.startsWith(route),
+  );
+
+  const isHomePage = currentRoute === "/" || currentRoute === "";
 
   // navbar scroll - transparent to solid
   useEffect(() => {
@@ -60,15 +77,27 @@ export function Navbar() {
     setTimeout(() => setTappedSocial(null), 300);
   };
 
-  const bgClass = !mounted
-    ? "bg-stone-950/5"
-    : isScrolled
-      ? theme === "dark"
-        ? "bg-stone-600/70"
-        : "bg-stone-900/70"
-      : theme === "dark"
-        ? "bg-stone-100/5"
-        : "bg-stone-950/5";
+  const getNavbarBackground = () => {
+    if (!mounted) return "";
+
+    if (isTransparentPage) {
+      return isScrolled ? "bg-stone-950/10 backdrop-blur-sm" : "";
+    }
+
+    if (isHomePage) {
+      return isScrolled
+        ? theme === "dark"
+          ? "bg-stone-600/70 backdrop-blur-sm"
+          : "bg-stone-900/70 backdrop-blur-sm"
+        : theme === "dark"
+          ? "bg-stone-100/5 backdrop-blur-sm"
+          : "bg-stone-950/5 backdrop-blur-sm";
+    }
+
+    return isScrolled ? "bg-stone-950/10 backdrop-blur-sm" : "";
+  };
+
+  const bgClass = getNavbarBackground();
 
   // during SSR, render a skeleton
   if (!mounted) {
@@ -94,7 +123,7 @@ export function Navbar() {
     <>
       {/* navbar */}
       <nav
-        className={`fixed top-0 right-0 left-0 z-50 transition-all duration-500 ${bgClass} py-4 backdrop-blur-sm`}
+        className={`fixed top-0 right-0 left-0 z-50 transition-all duration-500 ${bgClass} py-4`}
       >
         <div className="container mx-auto px-2 md:px-6">
           <div className="flex items-center justify-between">
@@ -123,22 +152,24 @@ export function Navbar() {
 
             {/* right side */}
             <div className="flex items-center gap-12 md:gap-16">
-              {/* theme toggle */}
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3, ease: "easeInOut" }}
-              >
-                <div
-                  className={
-                    isScrolled
-                      ? ""
-                      : "rounded-full bg-stone-100/20 p-1 backdrop-blur-sm"
-                  }
+              {/* Theme toggle - APENAS NA HOME */}
+              {isHomePage && (
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3, ease: "easeInOut" }}
                 >
-                  <ThemeToggle />
-                </div>
-              </motion.div>
+                  <div
+                    className={
+                      isScrolled
+                        ? ""
+                        : "rounded-full bg-stone-100/20 p-1 backdrop-blur-sm"
+                    }
+                  >
+                    <ThemeToggle />
+                  </div>
+                </motion.div>
+              )}
 
               {/* hamburger button */}
               <Button
@@ -211,23 +242,32 @@ export function Navbar() {
               HOME
             </MobileNavLink>
 
-            <MobileNavLink href="/" onClick={() => setIsMenuOpen(false)}>
+            <MobileNavLink
+              href="/who-are-we"
+              onClick={() => setIsMenuOpen(false)}
+            >
               QUEM SOMOS
             </MobileNavLink>
 
-            <MobileNavLink href="/" onClick={() => setIsMenuOpen(false)}>
+            <MobileNavLink
+              href="/what-we-do"
+              onClick={() => setIsMenuOpen(false)}
+            >
               O QUE FAZEMOS
             </MobileNavLink>
 
-            <MobileNavLink href="/" onClick={() => setIsMenuOpen(false)}>
+            <MobileNavLink
+              href="/portfolio"
+              onClick={() => setIsMenuOpen(false)}
+            >
               NOSSO PORTFÓLIO
             </MobileNavLink>
 
-            <MobileNavLink href="/" onClick={() => setIsMenuOpen(false)}>
+            <MobileNavLink href="/news" onClick={() => setIsMenuOpen(false)}>
               NOVIDADES
             </MobileNavLink>
 
-            <MobileNavLink href="/" onClick={() => setIsMenuOpen(false)}>
+            <MobileNavLink href="/contact" onClick={() => setIsMenuOpen(false)}>
               CONTATO
             </MobileNavLink>
           </div>
@@ -323,7 +363,7 @@ export function Navbar() {
                       : "bg-cerise-900/30 hover:border-cerise-700 hover:text-cerise-700 border-stone-200 text-stone-200 hover:scale-102 hover:bg-stone-950/30 hover:shadow-lg active:scale-98"
                 }`}
               >
-                <Link href="/">Fale Conosco</Link>
+                <Link href="/contact">Fale Conosco</Link>
               </Button>
             </div>
 

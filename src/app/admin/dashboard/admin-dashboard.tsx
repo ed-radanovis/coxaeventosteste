@@ -47,6 +47,12 @@ export function AdminDashboard() {
       path: "/admin/display-cases",
     },
     {
+      title: "Equipe",
+      description: "Gerencie membros da equipe",
+      icon: <Users className="h-8 w-8" />,
+      path: "/admin/team-members",
+    },
+    {
       title: "Depoimentos",
       description: "Gerencie depoimentos",
       icon: <MessageSquare className="h-8 w-8" />,
@@ -61,12 +67,6 @@ export function AdminDashboard() {
     {
       title: "Clientes",
       description: "Gerencie portfólio",
-      icon: <Users className="h-8 w-8" />,
-      path: "/admin/clients",
-    },
-    {
-      title: "??? a Definir",
-      description: "Gerencie ????",
       icon: <Users className="h-8 w-8" />,
       path: "/admin/clients",
     },

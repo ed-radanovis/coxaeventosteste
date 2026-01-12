@@ -212,7 +212,7 @@ export function WhatWeDo() {
           exit={{ opacity: 0, scaleY: 0 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
           viewport={{ once: false, amount: 0.3 }}
-          className={`mt-16 hidden w-[1px] rounded-full md:block ${
+          className={`mt-16 hidden w-[1px] rounded-full md:mt-60 md:block lg:mt-16 ${
             !mounted
               ? "bg-stone-700/50"
               : theme === "dark"
@@ -235,17 +235,17 @@ export function WhatWeDo() {
           exit={{ opacity: 0, x: -60 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
           viewport={{ once: false, amount: 0.3 }}
-          className="flex w-full flex-col items-center md:w-1/3 md:items-end md:self-center"
+          className="flex w-full flex-col md:mr-10 md:ml-0 md:w-1/3 md:items-end md:self-center lg:mr-0"
         >
           <div className="text-center leading-[1.2] md:text-left">
             <h2
-              className="mb-1.5 text-5xl font-bold md:text-7xl"
+              className="mb-1.5 text-5xl font-bold md:text-4xl lg:text-7xl"
               style={{ fontFamily: "var(--font-charis-sil)" }}
             >
               O QUE
             </h2>
             <h1
-              className="text-5xl font-bold md:text-7xl"
+              className="text-5xl font-bold md:text-4xl lg:text-7xl"
               style={{ fontFamily: "var(--font-charis-sil)" }}
             >
               <span className="text-stone-500">NÓS</span>{" "}
