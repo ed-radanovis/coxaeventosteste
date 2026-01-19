@@ -410,7 +410,7 @@ export function About() {
                 style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
               >
                 <Search className="h-5 w-5" />
-                <Link href="/">Saiba mais</Link>
+                <Link href="/who-are-we">Saiba mais</Link>
               </Button>
             </motion.div>
           </motion.div>

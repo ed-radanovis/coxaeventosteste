@@ -1,6 +1,6 @@
 import { generatePageMetadata } from "@/lib/metadata";
 import { Navbar } from "../(home)/_components/navbar";
-import { Hero } from "./_components/hero";
+import { WhoAreHero } from "./_components/hero";
 import { Introduction } from "./_components/introduction";
 import { TeamGrid } from "./_components/team-grid";
 import { CertificationsGrid } from "@/components/ui/certifications-grid";
@@ -17,7 +17,7 @@ export default async function WhoAreWePage() {
   return (
     <>
       <Navbar />
-      <Hero />
+      <WhoAreHero />
       <Introduction />
       <TeamGrid />
       <CertificationsGrid />

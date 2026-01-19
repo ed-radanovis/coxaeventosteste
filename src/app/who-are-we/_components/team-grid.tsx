@@ -387,7 +387,7 @@ export function TeamGrid() {
       {/* team grid */}
       <section
         id="team"
-        className={`relative px-6 pt-28 pb-20 transition-colors duration-700 md:px-0 ${
+        className={`relative px-0 pt-28 pb-20 transition-colors duration-700 ${
           theme === "dark"
             ? "bg-stone-800 text-stone-100"
             : "bg-stone-200 text-stone-950"
@@ -424,7 +424,7 @@ export function TeamGrid() {
               </span>
             </h2>
             <p
-              className={`mx-auto text-base md:text-xl lg:text-lg ${
+              className={`mx-auto text-base font-medium md:text-xl ${
                 theme === "dark" ? "text-stone-400" : "text-stone-600"
               }`}
               style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
@@ -435,7 +435,7 @@ export function TeamGrid() {
           </motion.div>
 
           {/* image grid */}
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-3 px-1 sm:grid-cols-2 lg:grid-cols-4">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={member.id}
@@ -451,7 +451,7 @@ export function TeamGrid() {
                   className={`relative mb-4 h-2/3 overflow-hidden transition-all duration-500 ${
                     theme === "dark"
                       ? "bg-stone-800 shadow-lg shadow-stone-950"
-                      : "bg-stone-200 shadow-lg shadow-stone-400/30"
+                      : "bg-stone-200 shadow-lg shadow-stone-600"
                   } ${tappedCard === member.id ? "scale-95" : "group-hover:scale-102"}`}
                 >
                   {/* image */}
@@ -560,10 +560,10 @@ export function TeamGrid() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
             viewport={{ once: true }}
-            className="mt-8 mb-6 text-center"
+            className="mt-2 mb-6 text-center"
           >
             <p
-              className={`mb-10 text-lg ${
+              className={`mb-10 text-base md:text-lg ${
                 theme === "dark" ? "text-stone-400" : "text-stone-600"
               }`}
             >

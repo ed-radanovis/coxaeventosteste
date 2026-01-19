@@ -1,26 +1,3 @@
-// import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
-
-// /**
-//  * This is the primary router for your server.
-//  *
-//  * All routers added in /api/routers should be manually added here.
-//  */
-// export const appRouter = createTRPCRouter({
-//   // Temporariamente vazio; será preenchido com routers para eventos/testimonials
-// });
-
-// // export type definition of API
-// export type AppRouter = typeof appRouter;
-
-// /**
-//  * Create a server-side caller for the tRPC API.
-//  * @example
-//  * const trpc = createCaller(createContext);
-//  * const res = await trpc.post.all();
-//  *       ^? Post[]
-//  */
-// export const createCaller = createCallerFactory(appRouter);
-
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 import { eventRouter } from "./routers/event";
 import { adminRouter } from "./routers/admin-event";
@@ -28,6 +5,10 @@ import { displayCaseRouter } from "./routers/display_case";
 import { adminDisplayCaseRouter } from "./routers/admin-display_case";
 import { teamMemberRouter } from "./routers/team-member";
 import { adminTeamMemberRouter } from "./routers/admin-team-member";
+import { adminProcessRouter } from "./routers/admin-process";
+import { adminServiceDetailRouter } from "./routers/admin-service-detail";
+import { processRouter } from "./routers/process";
+import { serviceDetailRouter } from "./routers/service-detail";
 
 export const appRouter = createTRPCRouter({
   event: eventRouter,
@@ -36,7 +17,11 @@ export const appRouter = createTRPCRouter({
   adminDisplayCase: adminDisplayCaseRouter,
   adminTeamMember: adminTeamMemberRouter,
   teamMember: teamMemberRouter,
-  // depois adicionar: testimonial, news, etc.
+  adminProcess: adminProcessRouter,
+  adminServiceDetail: adminServiceDetailRouter,
+  process: processRouter,
+  serviceDetail: serviceDetailRouter,
+  // adicionar
 });
 
 export type AppRouter = typeof appRouter;

@@ -4,8 +4,10 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { SectionSeparator } from "@/components/ui/section-separator";
+import { useTheme } from "next-themes";
 
-export function Hero() {
+export function WhoAreHero() {
+  const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -15,7 +17,7 @@ export function Hero() {
   // during SSR, renders a skeleton
   if (!mounted) {
     return (
-      <section className="relative flex min-h-[85vh] items-center justify-start overflow-hidden pt-20 md:pt-16">
+      <section className="relative flex min-h-screen items-center justify-start overflow-hidden pt-20 md:pt-16 lg:min-h-[85vh]">
         <div className="absolute inset-0 z-0 h-full w-full bg-stone-300 dark:bg-stone-800" />
         {/* skeleton content */}
         <div className="relative z-10 flex w-full flex-col items-start justify-center px-2 text-left md:px-16 lg:px-28">
@@ -33,11 +35,17 @@ export function Hero() {
   }
 
   return (
-    <section className="relative flex min-h-[85vh] items-center justify-start overflow-hidden pt-20 md:pt-16">
+    <section className="relative flex min-h-screen items-center justify-start overflow-hidden pt-20 md:pt-16 lg:min-h-[85vh]">
       <div className="absolute inset-0 z-0 h-full w-full">
         <div className="relative aspect-[16/9] h-full w-full">
           {/* overlay */}
-          <div className="absolute inset-0 z-[1] bg-stone-950/60" />
+          <div
+            className={`absolute inset-0 z-[1] transition-colors duration-700 ${
+              theme === "dark"
+                ? "bg-gradient-to-r from-stone-950/70 via-stone-950/50 to-transparent"
+                : "bg-gradient-to-r from-stone-800/70 via-stone-800/50 to-transparent"
+            }`}
+          />
           {/* background image with fallback */}
           <div className="absolute inset-0 bg-gradient-to-br from-stone-900 via-stone-800 to-stone-900" />
           <Image

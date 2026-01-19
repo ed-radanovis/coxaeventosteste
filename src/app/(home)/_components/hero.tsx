@@ -21,10 +21,22 @@ export function Hero() {
   const [tappedSocial, setTappedSocial] = useState<string | null>(null);
 
   const videos: HeroVideo[] = [
-    { src: "/videos/hero/video_hero_1.mp4", position: "object-[center_46%]" },
-    { src: "/videos/hero/video_hero_2.mp4", position: "object-[center_42%]" },
-    { src: "/videos/hero/video_hero_3.mp4", position: "object-[center_45%]" },
-    { src: "/videos/hero/video_hero_4.mp4", position: "object-[center_45%]" },
+    {
+      src: "/videos/hero_main/video_hero_1.mp4",
+      position: "object-[center_46%]",
+    },
+    {
+      src: "/videos/hero_main/video_hero_2.mp4",
+      position: "object-[center_42%]",
+    },
+    {
+      src: "/videos/hero_main/video_hero_3.mp4",
+      position: "object-[center_45%]",
+    },
+    {
+      src: "/videos/hero_main/video_hero_4.mp4",
+      position: "object-[center_45%]",
+    },
   ];
 
   const [index, setIndex] = useState<number>(0);

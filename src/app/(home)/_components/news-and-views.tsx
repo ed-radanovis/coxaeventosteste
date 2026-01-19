@@ -121,7 +121,7 @@ export function NewsAndViews() {
             ))}
           </div>
 
-          {/* Button */}
+          {/* button */}
           <div className="mt-16 flex justify-center">
             <div className="h-12 w-48 bg-stone-300/20" />
           </div>

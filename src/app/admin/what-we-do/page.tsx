@@ -1,23 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { UserButton } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { Loading } from "@/components/ui/loading";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BackToFooterButton } from "./back-to-footer-button";
-import {
-  Image as ImageIcon,
-  Calendar,
-  MessageSquare,
-  Newspaper,
-  Users,
-  Settings,
-} from "lucide-react";
+import { ArrowLeft, Settings, Workflow, Wrench } from "lucide-react";
 
-export function AdminDashboard() {
+export default function WhatWeDoPage() {
   const router = useRouter();
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -36,46 +27,16 @@ export function AdminDashboard() {
 
   const navigationItems = [
     {
-      title: "Vitrines",
-      description: "Gerencie vitrines criadas",
-      icon: <ImageIcon className="h-8 w-8" />,
-      path: "/admin/display-cases",
+      title: "Processo Criativo",
+      description: "Gerencie as etapas do Processo Criativo",
+      icon: <Workflow className="h-8 w-8" />,
+      path: "/admin/what-we-do/process",
     },
     {
-      title: "Equipe",
-      description: "Gerencie membros da equipe",
-      icon: <Users className="h-8 w-8" />,
-      path: "/admin/team-members",
-    },
-    {
-      title: "O Que Fazemos",
-      description: "Gerencie processos e serviços",
-      icon: <Settings className="h-8 w-8" />,
-      path: "/admin/what-we-do",
-    },
-    {
-      title: "Depoimentos",
-      description: "Gerencie depoimentos",
-      icon: <MessageSquare className="h-8 w-8" />,
-      path: "/admin/testimonials",
-    },
-    {
-      title: "Notícias",
-      description: "Gerencie conteúdos em destaque",
-      icon: <Newspaper className="h-8 w-8" />,
-      path: "/admin/news",
-    },
-    {
-      title: "Clientes",
-      description: "Gerencie portfólio",
-      icon: <Users className="h-8 w-8" />,
-      path: "/admin/clients",
-    },
-    {
-      title: "Eventos",
-      description: "Gerencie eventos futuros",
-      icon: <Calendar className="h-8 w-8" />,
-      path: "/admin/events",
+      title: "Nossas Especialidades",
+      description: "Gerencie os detalhes de Nossas Especialidades",
+      icon: <Wrench className="h-8 w-8" />,
+      path: "/admin/what-we-do/services-detail",
     },
   ];
 
@@ -84,52 +45,50 @@ export function AdminDashboard() {
       className="min-h-screen bg-stone-300 p-6 dark:bg-stone-900"
       style={{ fontFamily: "var(--font-ibm-plex-sans)" }}
     >
-      {/* Header */}
+      {/* header */}
       <div className="mb-4">
         <div className="flex flex-col items-center justify-between md:flex-row">
           <div>
             <h1 className="flex justify-center text-3xl font-bold text-stone-900 md:justify-start dark:text-stone-100">
-              Painel Administrativo
+              Gerenciar - O Que Fazemos
             </h1>
             <p className="my-3 flex justify-center text-sm text-stone-600 md:justify-start dark:text-stone-400">
               Selecione uma área para gerenciar
             </p>
           </div>
 
-          <div
-            onTouchStart={() => handleTap("user-button")}
-            className={`mt-2 flex w-fit justify-center rounded-sm border px-2 py-1 transition-all duration-200 ease-in-out ${
-              tappedElement === "user-button"
-                ? "scale-95 border-stone-400"
-                : theme === "dark"
-                  ? "hover:border-persian-500 border-stone-600 bg-stone-800 hover:scale-102"
-                  : "hover:border-crusta-500 border-stone-400 bg-stone-200 hover:scale-102"
-            }`}
-          >
-            <UserButton
-              showName
-              appearance={{
-                elements: {
-                  avatarBox: "w-7 h-7 md:w-10 md:h-10",
-                  userButtonBox:
-                    "flex flex-col-reverse items-center text-muted-foreground",
-                  userButtonOuterIdentifier: "text-xm md:text-base",
-                  userButtonPopoverActionButton:
-                    "dark:text-stone-300 dark:hover:text-yellow-400",
-                  userButtonPopoverActionButtonIcon: "dark:text-stone-400",
-                },
-              }}
-            />
+          <div className="mt-2 flex items-center gap-2">
+            <Settings className="h-6 w-6 text-stone-600 dark:text-stone-400" />
+            <span className="text-sm text-stone-600 dark:text-stone-400">
+              O Que Fazemos
+            </span>
           </div>
         </div>
       </div>
 
       <div className="my-6">
-        <BackToFooterButton />
+        <Button
+          size="sm"
+          onClick={() => {
+            handleTap("back-button");
+            router.push("/admin");
+          }}
+          onTouchStart={() => handleTap("back-button")}
+          className={`flex items-center gap-2 border transition-all duration-300 ease-in-out ${
+            tappedElement === "back-button"
+              ? "scale-98"
+              : theme === "dark"
+                ? "bg-stone-600/60 text-stone-400 hover:scale-102 hover:bg-stone-600"
+                : "border-stone-400 bg-stone-100/80 text-stone-500 hover:scale-102 hover:bg-stone-100"
+          }`}
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Voltar ao Dashboard
+        </Button>
       </div>
 
       {/* navigation grid */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {navigationItems.map((item, index) => (
           <Card
             key={item.title}
@@ -195,6 +154,7 @@ export function AdminDashboard() {
           </Card>
         ))}
       </div>
+
       <Card className="mt-8 border border-stone-200 bg-stone-200/50 dark:border-stone-700 dark:bg-stone-800/30">
         <CardContent className="p-6 text-center">
           <p
@@ -202,8 +162,8 @@ export function AdminDashboard() {
               theme === "dark" ? "text-stone-400" : "text-stone-600"
             }`}
           >
-            Bem-vindo ao painel administrativo. Selecione uma das áreas acima e
-            faça a gestão.
+            Gerencie os conteúdos da página O Que Fazemos - Processo Criativo e
+            Nossas Especialidades.
           </p>
         </CardContent>
       </Card>

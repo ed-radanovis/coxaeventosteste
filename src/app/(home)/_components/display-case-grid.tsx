@@ -216,12 +216,12 @@ export function DisplayCaseGrid() {
 
       <section
         id="display-case-grid"
-        className={`relative flex flex-col items-center justify-center overflow-hidden transition-all duration-700 ease-in-out ${
-          currentTheme === "dark" ? "bg-stone-900" : "bg-stone-100"
+        className={`relative flex flex-col items-center justify-center overflow-hidden pt-2 transition-all duration-700 ease-in-out lg:pt-0 ${
+          currentTheme === "dark" ? "bg-stone-800" : "bg-stone-200"
         }`}
       >
         {/* image grid */}
-        <div className="grid w-full grid-cols-1 gap-2 md:grid-cols-4 md:gap-1.5 md:px-1.5">
+        <div className="grid w-full grid-cols-1 gap-2 px-2 pb-4 md:grid-cols-4">
           {displayCases.map((item, index) => (
             <motion.div
               key={item.id}
@@ -233,7 +233,11 @@ export function DisplayCaseGrid() {
                 ease: "easeInOut",
               }}
               viewport={{ once: true }}
-              className="group relative block h-full w-full overflow-hidden"
+              className={`group relative block h-full w-full overflow-hidden ${
+                theme === "dark"
+                  ? "shadow-lg shadow-stone-950"
+                  : "shadow-lg shadow-stone-600"
+              }`}
               onTouchStart={() => handleCardTap(index)}
             >
               {/* image */}
